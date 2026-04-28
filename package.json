@@ -21,7 +21,7 @@
 2. next.config.js
 javascript
 
-
+{
   "name": "mariave-tienda",
   "version": "1.0.0",
   "private": true,
