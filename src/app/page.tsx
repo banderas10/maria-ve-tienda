@@ -1,861 +1,187 @@
-'use client';
+"use client";
+import { useState } from "react";
 
-import { useState, useEffect } from 'react';
+// --- BASE DE DATOS DE PRODUCTOS ACTUALIZADA ---
+// Asegúrate de subir las fotos a la carpeta 'public' con estos nombres
+const products = [
+  // --- MERMELADAS ---
+  { id: 1, name: 'Mermelada de Frutillas', price: 2500, category: 'mermeladas', image: '/frutillas.jpg', desc: 'Recién llegadas, clásico y distinguido' },
+  { id: 2, name: 'Mermelada de Duraznos', price: 2700, category: 'mermeladas', image: '/duraznos.jpg', desc: 'Dulce, cremoso y aromático', discount: 10 },
+  { id: 3, name: 'Mermelada de Moras', price: 2800, category: 'mermeladas', image: '/moras.jpg', desc: 'Producción semanal' },
+  { id: 4, name: 'Mermelada de Pimientos', price: 2600, category: 'mermeladas', image: '/pimientos.jpg', desc: 'Sabor único y diferente', discount: 15 },
+  
+  // --- POSTRES (Solo Dulce de Leche) ---
+  { id: 5, name: 'Dulce de Leche Tradicional', price: 3200, category: 'postres', image: '/dulce-leche.jpg', desc: 'Fuego lento, sabor de siempre' },
+  
+  // --- CONSERVAS ---
+  { id: 6, name: 'Pasta de Aceitunas', price: 2900, category: 'conservas', image: '/aceitunas.jpg', desc: 'Ideal para tablas de quesos', discount: 10 },
+  { id: 7, name: 'Ajos Confitados', price: 2400, category: 'conservas', image: '/ajos.jpg', desc: 'En aceto balsámico' },
+  { id: 8, name: 'Cebollas al Malbec', price: 2500, category: 'conservas', image: '/cebollas.jpg', desc: 'Acompañamiento gourmet' },
 
-// ============================================
-// PRODUCTOS - MARÍA VE IDEAS Y SABORES
-// ============================================
-const productos = [
-  {
-    id: 1,
-    nombre: 'Mermelada Artesanal de Frutillas',
-    precio: 8.50,
-    imagen: '/products-maria/producto-1.jpg',
-    descripcion: 'Mermelada artesanal de frutillas frescas. Sabor clásico y distinguido, elaborada con frutos seleccionados.',
-    categoria: 'Mermeladas',
-    destacado: true,
-    badge: 'Nuevo',
-    rating: 4.9,
-    reviews: 45
-  },
-  {
-    id: 2,
-    nombre: 'Postre Especial de la Casa',
-    precio: 12.00,
-    imagen: '/products-maria/producto-2.jpg',
-    descripcion: 'Postre artesanal preparado con receta tradicional. Perfecto para ocasiones especiales.',
-    categoria: 'Postres',
-    destacado: true,
-    badge: 'Favorito',
-    rating: 4.8,
-    reviews: 67
-  },
-  {
-    id: 3,
-    nombre: 'Mermelada Gourmet de Autor',
-    precio: 9.00,
-    imagen: '/products-maria/producto-3.jpg',
-    descripcion: 'Creación única con combinación de sabores sorprendente. Elaborada artesanalmente.',
-    categoria: 'Mermeladas',
-    destacado: true,
-    badge: 'Premium',
-    rating: 4.9,
-    reviews: 38
-  },
-  {
-    id: 4,
-    nombre: 'Plato Casero Artesanal',
-    precio: 14.50,
-    imagen: '/products-maria/producto-4.jpg',
-    descripcion: 'Plato preparado con ingredientes frescos y recetas tradicionales. Como en casa.',
-    categoria: 'Platos Caseros',
-    badge: 'Artesanal',
-    rating: 4.7,
-    reviews: 29
-  },
-  {
-    id: 5,
-    nombre: 'Especialidad de María',
-    precio: 11.00,
-    imagen: '/products-maria/producto-5.jpg',
-    descripcion: 'Creación especial de María, con ingredientes premium y mucho amor.',
-    categoria: 'Postres',
-    badge: 'Gourmet',
-    rating: 4.8,
-    reviews: 23
-  },
-  {
-    id: 6,
-    nombre: 'Conserva Tradicional',
-    precio: 9.50,
-    imagen: '/products-maria/producto-6.jpg',
-    descripcion: 'Conserva elaborada siguiendo métodos tradicionales. Sabor que perdura.',
-    categoria: 'Conservas',
-    destacado: true,
-    badge: 'Clásico',
-    rating: 5.0,
-    reviews: 89
-  },
-  {
-    id: 7,
-    nombre: 'Dulce Especial de Autor',
-    precio: 10.00,
-    imagen: '/products-maria/producto-7.jpg',
-    descripcion: 'Dulce artesanal con textura suave y sabor incomparable. Hecho a mano.',
-    categoria: 'Dulces',
-    badge: 'Delicioso',
-    rating: 4.6,
-    reviews: 34
-  },
-  {
-    id: 8,
-    nombre: 'Creación Gourmet Premium',
-    precio: 15.00,
-    imagen: '/products-maria/producto-8.jpg',
-    descripcion: 'Plato gourmet de autor, preparado con los mejores ingredientes y presentación impecable.',
-    categoria: 'Platos Caseros',
-    destacado: true,
-    badge: 'Exclusivo',
-    rating: 4.9,
-    reviews: 52
-  },
-  {
-    id: 9,
-    nombre: 'Mermelada de Duraznos',
-    precio: 8.50,
-    imagen: '/products-maria/mermelada-duraznos.jpg',
-    descripcion: 'Dulce cremoso y aromático. Elaborado con duraznos seleccionados para un sabor único.',
-    categoria: 'Mermeladas',
-    badge: 'Natural',
-    rating: 4.8,
-    reviews: 67
-  },
-  {
-    id: 10,
-    nombre: 'Mermelada de Pimientos',
-    precio: 9.00,
-    imagen: '/products-maria/mermelada-pimientos.jpg',
-    descripcion: 'Receta clásica con un sabor diferente. Perfecta para acompañar quesos y carnes.',
-    categoria: 'Mermeladas',
-    badge: 'Único',
-    rating: 4.9,
-    reviews: 38
-  },
-  {
-    id: 11,
-    nombre: 'Pasta de Aceitunas',
-    precio: 10.50,
-    imagen: '/products-maria/pasta-aceitunas.jpg',
-    descripcion: 'Pasta cremosa de aceitunas seleccionadas. Ideal para untar o como acompañamiento.',
-    categoria: 'Conservas',
-    badge: 'Mediterráneo',
-    rating: 4.7,
-    reviews: 29
-  },
-  {
-    id: 12,
-    nombre: 'Ajos Confitados en Aceto',
-    precio: 11.00,
-    imagen: '/products-maria/ajos-confitados.jpg',
-    descripcion: 'Dientes de ajo confitados en aceto balsámico. Un condimento gourmet para tus platos.',
-    categoria: 'Conservas',
-    badge: 'Gourmet',
-    rating: 4.8,
-    reviews: 23
-  },
-  {
-    id: 13,
-    nombre: 'Dulce de Leche Tradicional',
-    precio: 9.50,
-    imagen: '/products-maria/dulce-leche.jpg',
-    descripcion: 'Elaborado a fuego lento con receta antigua. Textura cremosa y sabor auténtico.',
-    categoria: 'Dulces',
-    badge: 'Tradicional',
-    rating: 5.0,
-    reviews: 89
-  }
+  // --- PLATOS CASEROS (NUEVOS) ---
+  { id: 9, name: 'Promo Tortilla + Buñuelos', price: 3500, category: 'platos', image: '/promo-tortilla.jpg', desc: 'La más vendida! + Mermelada de Pimientos', discount: 10 },
+  { id: 10, name: 'Guiso de Lentejas', price: 3800, category: 'platos', image: '/guiso.jpg', desc: 'Sabores de otoño, bien casero' },
+  { id: 11, name: 'Tortilla Clásica', price: 2200, category: 'platos', image: '/promo-tortilla.jpg', desc: 'Receta de la nona' },
 ];
 
-const productoDestacado = productos[7]; // Creación Gourmet Premium
-const WHATSAPP_NUMBER = '34612345678';
-
-const testimonios = [
-  {
-    nombre: 'Carmen López',
-    texto: 'El dulce de leche es espectacular, se nota que está hecho a fuego lento. ¡Ya es mi tercera compra!',
-    rating: 5,
-    producto: 'Dulce de Leche Tradicional'
-  },
-  {
-    nombre: 'Roberto Fernández',
-    texto: 'Las mermeladas son increíbles. La de pimientos es perfecta para acompañar quesos. Muy recomendable.',
-    rating: 5,
-    producto: 'Mermelada de Pimientos'
-  },
-  {
-    nombre: 'Ana Martínez',
-    texto: 'Productos artesanales de verdadera calidad. Se nota el amor con que los preparan. ¡Seguiré comprando!',
-    rating: 5,
-    producto: 'Pasta de Aceitunas'
-  }
-];
+type Product = typeof products[0];
+type CartItem = Product & { quantity: number };
 
 export default function Tienda() {
-  const [carrito, setCarrito] = useState<{id: number; nombre: string; precio: number; cantidad: number; imagen: string}[]>([]);
-  const [mostrarCarrito, setMostrarCarrito] = useState(false);
-  const [categoriaActiva, setCategoriaActiva] = useState('Todos');
-  const [scrolled, setScrolled] = useState(false);
-  const [menuAbierto, setMenuAbierto] = useState(false);
+  const [cart, setCart] = useState<CartItem[]>([]);
+  const [isCartOpen, setIsCartOpen] = useState(false);
+  const [activeCategory, setActiveCategory] = useState('todos');
 
-  useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 50);
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  // Filtrado de productos
+  const filteredProducts = activeCategory === 'todos' 
+    ? products 
+    : products.filter(p => p.category === activeCategory);
 
-  const categorias = ['Todos', ...new Set(productos.map(p => p.categoria))];
-  const productosFiltrados = categoriaActiva === 'Todos' 
-    ? productos 
-    : productos.filter(p => p.categoria === categoriaActiva);
-
-  const agregarAlCarrito = (producto: typeof productos[0]) => {
-    setCarrito(prev => {
-      const existe = prev.find(item => item.id === producto.id);
-      if (existe) {
+  // Lógica del Carrito
+  const addToCart = (product: Product) => {
+    setCart(prev => {
+      const existing = prev.find(item => item.id === product.id);
+      if (existing) {
         return prev.map(item => 
-          item.id === producto.id 
-            ? {...item, cantidad: item.cantidad + 1}
-            : item
+          item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item
         );
       }
-      return [...prev, {
-        id: producto.id, 
-        nombre: producto.nombre, 
-        precio: producto.precio, 
-        cantidad: 1,
-        imagen: producto.imagen
-      }];
+      return [...prev, { ...product, quantity: 1 }];
+    });
+    setIsCartOpen(true);
+  };
+
+  const updateQuantity = (id: number, change: number) => {
+    setCart(prev => {
+      return prev.map(item => {
+        if (item.id === id) {
+          const newQty = item.quantity + change;
+          return newQty > 0 ? { ...item, quantity: newQty } : item;
+        }
+        return item;
+      }).filter(item => item.quantity > 0);
     });
   };
 
-  const quitarDelCarrito = (id: number) => {
-    setCarrito(prev => prev.filter(item => item.id !== id));
-  };
+  const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+  const cartCount = cart.reduce((sum, item) => sum + item.quantity, 0);
 
-  const cambiarCantidad = (id: number, delta: number) => {
-    setCarrito(prev => prev.map(item => {
-      if (item.id === id) {
-        const nuevaCantidad = item.cantidad + delta;
-        return nuevaCantidad <= 0 ? item : {...item, cantidad: nuevaCantidad};
-      }
-      return item;
-    }).filter(item => item.cantidad > 0));
-  };
-
-  const totalCarrito = carrito.reduce((sum, item) => sum + (item.precio * item.cantidad), 0);
-  const totalItems = carrito.reduce((sum, item) => sum + item.cantidad, 0);
-
-  const enviarPedidoWhatsApp = () => {
-    if (carrito.length === 0) return;
-    const mensaje = carrito.map(item => 
-      `• ${item.cantidad}x ${item.nombre} - €${(item.precio * item.cantidad).toFixed(2)}`
-    ).join('%0A');
-    const texto = `🛒 *NUEVO PEDIDO - María Ve Ideas y Sabores*%0A%0A${mensaje}%0A%0A💰 *Total: €${totalCarrito.toFixed(2)}*%0A%0A¡Hola! Me gustaría realizar este pedido.`;
-    window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${texto}`, '_blank');
+  const sendOrder = () => {
+    let message = '*¡Hola Maria Ve! Quiero hacer un pedido:*\n\n';
+    cart.forEach(item => message += `${item.quantity}x ${item.name} - $${(item.price * item.quantity).toLocaleString()}\n`);
+    message += `\n*Total: $${total.toLocaleString()}*`;
+    window.open(`https://wa.me/5491112345678?text=${encodeURIComponent(message)}`, '_blank');
   };
 
   return (
-    <div className="min-h-screen bg-[#fef9f3]">
-      {/* HEADER - RESPONSIVE */}
-      <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled ? 'bg-white/98 shadow-lg' : 'bg-transparent'
-      }`}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16 sm:h-20">
-            {/* Logo con Nombre y Slogan */}
-            <a href="#inicio" className="flex items-center gap-2 sm:gap-3">
-              <div className={`w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 rounded-full flex items-center justify-center shadow-lg transition-all duration-300 ${
-                scrolled ? 'bg-gradient-to-br from-rose-400 to-orange-400' : 'bg-gradient-to-br from-rose-500 to-orange-500'
-              }`}>
-                <span className="text-white text-xl sm:text-2xl font-bold">MV</span>
-              </div>
-              <div className="flex flex-col">
-                <h1 className={`text-base sm:text-lg lg:text-xl font-bold leading-tight transition-colors ${
-                  scrolled ? 'text-rose-600' : 'text-white'
-                }`}>
-                  María Ve
-                </h1>
-                <p className={`text-[9px] sm:text-xs font-medium tracking-wide transition-colors ${
-                  scrolled ? 'text-gray-500' : 'text-white/90'
-                }`}>
-                  Ideas y Sabores
-                </p>
-              </div>
-            </a>
-            
-            {/* Navegación Desktop */}
-            <nav className="hidden md:flex gap-6 lg:gap-8">
-              {['Inicio', 'Productos', 'Nosotros', 'Contacto'].map(item => (
-                <a 
-                  key={item}
-                  href={`#${item.toLowerCase()}`} 
-                  className={`font-medium transition-colors ${
-                    scrolled ? 'text-gray-700 hover:text-rose-600' : 'text-white hover:text-rose-200'
-                  }`}
-                >
-                  {item}
-                </a>
-              ))}
-            </nav>
-
-            {/* Carrito y Menú Móvil */}
-            <div className="flex items-center gap-2 sm:gap-4">
-              <button
-                onClick={() => setMostrarCarrito(true)}
-                className="relative bg-gradient-to-r from-rose-500 to-orange-500 text-white px-3 sm:px-5 py-2 sm:py-2.5 rounded-full font-semibold text-sm sm:text-base hover:from-rose-600 hover:to-orange-600 transition-all flex items-center gap-1 sm:gap-2"
-              >
-                <span>🛒</span>
-                <span className="hidden sm:inline">Carrito</span>
-                {totalItems > 0 && (
-                  <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs w-5 h-5 sm:w-6 sm:h-6 rounded-full flex items-center justify-center font-bold">
-                    {totalItems}
-                  </span>
-                )}
-              </button>
-
-              {/* Botón Menú Móvil */}
-              <button
-                onClick={() => setMenuAbierto(!menuAbierto)}
-                className="md:hidden p-2 rounded-lg"
-              >
-                <span className={`text-2xl ${scrolled ? 'text-gray-700' : 'text-white'}`}>
-                  {menuAbierto ? '✕' : '☰'}
-                </span>
-              </button>
-            </div>
+    <main className="min-h-screen pb-24">
+      {/* NAVBAR CON LOGO OVALADO */}
+      <nav className="fixed top-0 w-full bg-[#FDF6E9]/95 backdrop-blur-md z-40 border-b border-gray-200 p-3 flex justify-between items-center">
+        <div className="flex items-center gap-2">
+          {/* LOGO SVG OVALADO ELEGANTE */}
+          <div className="w-24 h-10 sm:w-32 sm:h-12 flex items-center justify-center">
+            <svg viewBox="0 0 180 90" className="w-full h-full" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <defs><filter id="shadow"><feDropShadow dx="1" dy="1" stdDeviation="1" flood-opacity="0.1"/></filter></defs>
+              <rect x="2" y="2" width="176" height="86" rx="43" fill="#FDF6E9" stroke="#C4882F" stroke-width="3" filter="url(#shadow)"/>
+              <path d="M30 25 Q90 35 150 25" stroke="#3D5A45" stroke-width="1.5" fill="none" opacity="0.5"/>
+              <text x="90" y="52" fill="#3D5A45" font-size="22" font-family="'Playfair Display', serif" font-weight="800" text-anchor="middle" letter-spacing="1.5">MARIA VE</text>
+              <line x1="40" y1="58" x2="140" y2="58" stroke="#C4882F" stroke-width="1.5"/>
+              <text x="90" y="72" fill="#8B7355" font-size="9" font-family="'DM Sans', sans-serif" text-anchor="middle" letter-spacing="2" font-weight="600">IDEAS Y SABORES</text>
+              <circle cx="30" cy="58" r="2.5" fill="#C4882F"/>
+              <circle cx="150" cy="58" r="2.5" fill="#C4882F"/>
+            </svg>
           </div>
-
-          {/* Menú Móvil Desplegable */}
-          {menuAbierto && (
-            <div className="md:hidden bg-white rounded-b-2xl shadow-lg py-4 px-4 absolute left-0 right-0">
-              {['Inicio', 'Productos', 'Nosotros', 'Contacto'].map(item => (
-                <a 
-                  key={item}
-                  href={`#${item.toLowerCase()}`} 
-                  onClick={() => setMenuAbierto(false)}
-                  className="block py-3 px-4 text-gray-700 font-medium hover:bg-rose-50 hover:text-rose-600 rounded-lg transition-colors"
-                >
-                  {item}
-                </a>
-              ))}
-            </div>
-          )}
         </div>
-      </header>
-
-      {/* HERO - RESPONSIVE */}
-      <section id="inicio" className="bg-gradient-to-br from-rose-400 via-pink-500 to-orange-400 text-white min-h-screen flex items-center relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-3/4 h-full bg-white/5 rounded-full transform translate-x-1/3 -rotate-12" />
-        <div className="absolute bottom-0 left-0 w-1/2 h-1/2 bg-white/5 rounded-full transform -translate-x-1/4 translate-y-1/4" />
         
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 sm:py-32 relative z-10 w-full">
-          <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
-            {/* Texto */}
-            <div className="text-center lg:text-left order-2 lg:order-1">
-              <span className="inline-block bg-white/20 px-4 py-2 rounded-full text-sm font-medium mb-4 sm:mb-6">
-                ✨ Producto Destacado
-              </span>
-              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 sm:mb-6 leading-tight">
-                {productoDestacado.nombre}
-              </h1>
-              <p className="text-base sm:text-lg lg:text-xl mb-6 sm:mb-8 opacity-90 leading-relaxed">
-                {productoDestacado.descripcion}
-              </p>
-              
-              <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-6 mb-6 sm:mb-8">
-                <span className="text-4xl sm:text-5xl font-bold">
-                  €{productoDestacado.precio.toFixed(2)}
-                </span>
-                <div className="flex items-center gap-2 bg-white/20 px-4 py-2 rounded-full">
-                  <span className="text-yellow-300">★★★★★</span>
-                  <span className="text-sm">({productoDestacado.reviews} reseñas)</span>
-                </div>
-              </div>
+        <button onClick={() => setIsCartOpen(true)} className="relative p-2 bg-white rounded-full shadow-sm hover:shadow-md transition">
+          <svg className="w-6 h-6 text-[#3D5A45]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
+          {cartCount > 0 && <span className="absolute -top-1 -right-1 bg-[#B85C38] text-white text-xs w-5 h-5 rounded-full flex items-center justify-center">{cartCount}</span>}
+        </button>
+      </nav>
 
-              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center lg:justify-start">
-                <button
-                  onClick={() => agregarAlCarrito(productoDestacado)}
-                  className="bg-white text-rose-600 px-6 sm:px-8 py-3 sm:py-4 rounded-full font-bold text-base sm:text-lg shadow-lg hover:shadow-xl transition-shadow flex items-center justify-center gap-2"
-                >
-                  🛒 Añadir al Carrito
-                </button>
-                <a 
-                  href={`https://wa.me/${WHATSAPP_NUMBER}?text=¡Hola! Me interesa el ${productoDestacado.nombre}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="bg-green-500 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-full font-bold text-base sm:text-lg hover:bg-green-600 transition-colors flex items-center justify-center gap-2"
-                >
-                  💬 WhatsApp
-                </a>
-              </div>
-            </div>
-
-            {/* Imagen */}
-            <div className="order-1 lg:order-2 flex justify-center">
-              <div className="relative">
-                <div className="w-64 h-64 sm:w-80 sm:h-80 lg:w-96 lg:h-96 rounded-full overflow-hidden shadow-2xl border-4 sm:border-8 border-white/30">
-                  <img
-                    src={productoDestacado.imagen}
-                    alt={productoDestacado.nombre}
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-                {productoDestacado.badge && (
-                  <div className="absolute top-2 sm:top-4 right-2 sm:right-4 bg-yellow-400 text-gray-800 px-3 sm:px-5 py-1.5 sm:py-2 rounded-full font-bold text-sm sm:text-base shadow-lg">
-                    {productoDestacado.badge}
-                  </div>
-                )}
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* BENEFICIOS - RESPONSIVE */}
-      <section className="bg-white py-12 sm:py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
-            {[
-              {icon: '🚚', titulo: 'Envío a Domicilio', texto: 'Entregamos fresco a tu puerta'},
-              {icon: '👩‍🍳', titulo: '100% Artesanal', texto: 'Hechos con ingredientes premium'},
-              {icon: '⭐', titulo: 'Calidad Garantizada', texto: '+200 clientes satisfechos'},
-              {icon: '💳', titulo: 'Pago Fácil', texto: 'Efectivo o transferencia'}
-            ].map((b, i) => (
-              <div key={i} className="flex flex-col sm:flex-row items-center sm:items-start gap-3 p-4 sm:p-6 bg-rose-50 rounded-xl sm:rounded-2xl text-center sm:text-left">
-                <span className="text-3xl sm:text-4xl">{b.icon}</span>
-                <div>
-                  <h3 className="font-bold text-sm sm:text-base text-gray-800 mb-1">{b.titulo}</h3>
-                  <p className="text-gray-600 text-xs sm:text-sm hidden sm:block">{b.texto}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* PRODUCTOS - RESPONSIVE */}
-      <section id="productos" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-20">
-        <div className="text-center mb-8 sm:mb-12">
-          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-800 mb-2 sm:mb-4">
-            Nuestros Productos
-          </h2>
-          <p className="text-gray-600 text-sm sm:text-base lg:text-lg">
-            Mermeladas, dulces y conservas artesanales de autor
-          </p>
-        </div>
-
-        {/* Filtros */}
-        <div className="flex flex-wrap justify-center gap-2 sm:gap-3 mb-8 sm:mb-12">
-          {categorias.map(cat => (
+      {/* CONTENIDO PRINCIPAL */}
+      <div className="max-w-7xl mx-auto px-4 pt-28">
+        <h1 className="text-3xl font-bold font-serif text-[#3D5A45] text-center mb-2">Nuestros Productos</h1>
+        <p className="text-center text-gray-500 mb-8">Seleccioná y agregá al carrito</p>
+        
+        {/* FILTROS (Agregué "Platos Caseros") */}
+        <div className="flex flex-wrap justify-center gap-2 mb-8">
+          {['todos', 'mermeladas', 'postres', 'conservas', 'platos'].map(c => (
             <button
-              key={cat}
-              onClick={() => setCategoriaActiva(cat)}
-              className={`px-4 sm:px-6 py-2 sm:py-2.5 rounded-full font-semibold text-sm sm:text-base transition-all ${
-                categoriaActiva === cat 
-                  ? 'bg-gradient-to-r from-rose-500 to-orange-500 text-white' 
-                  : 'bg-white text-gray-700 border-2 border-gray-200 hover:border-rose-300'
-              }`}
+              key={c}
+              onClick={() => setActiveCategory(c)}
+              className={`px-4 py-2 rounded-full text-sm font-medium border transition ${activeCategory === c ? 'bg-[#3D5A45] text-white border-[#3D5A45]' : 'bg-white border-gray-200 hover:bg-gray-50'}`}
             >
-              {cat}
+              {c === 'todos' ? 'Todos' : c === 'platos' ? 'Platos Caseros' : c.charAt(0).toUpperCase() + c.slice(1)}
             </button>
           ))}
         </div>
 
-        {/* Grid de Productos */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
-          {productosFiltrados.map(producto => (
-            <div key={producto.id} className="bg-white rounded-xl sm:rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-shadow relative group">
-              {producto.badge && (
-                <span className="absolute top-3 left-3 bg-gradient-to-r from-rose-500 to-orange-500 text-white px-3 py-1 rounded-full text-xs font-bold z-10">
-                  {producto.badge}
-                </span>
-              )}
-              
-              <div className="h-48 sm:h-56 overflow-hidden">
-                <img
-                  src={producto.imagen}
-                  alt={producto.nombre}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                />
+        {/* GRID DE PRODUCTOS */}
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
+          {filteredProducts.map(p => (
+            <div key={p.id} className="bg-white rounded-2xl shadow overflow-hidden flex flex-col hover:shadow-lg transition hover:-translate-y-1">
+              <div className="relative aspect-square bg-[#F5E6D3]">
+                <img src={p.image} alt={p.name} className="w-full h-full object-cover" />
+                {p.discount && <span className="absolute top-2 right-2 bg-[#B85C38] text-white text-xs px-2 py-1 rounded-full shadow-md">{p.discount}% OFF</span>}
               </div>
-              
-              <div className="p-4 sm:p-5">
-                <div className="flex justify-between items-start gap-2 mb-2">
-                  <h3 className="font-bold text-base sm:text-lg text-gray-800 leading-tight">
-                    {producto.nombre}
-                  </h3>
-                  <span className="bg-rose-100 text-rose-700 px-2 py-0.5 rounded-full text-[10px] sm:text-xs font-semibold whitespace-nowrap">
-                    {producto.categoria}
-                  </span>
-                </div>
-                
-                <p className="text-gray-600 text-xs sm:text-sm mb-3 line-clamp-2">
-                  {producto.descripcion}
-                </p>
-
-                <div className="flex items-center gap-1 mb-3">
-                  <span className="text-yellow-400 text-sm">★</span>
-                  <span className="font-semibold text-gray-700 text-sm">{producto.rating}</span>
-                  <span className="text-gray-400 text-xs">({producto.reviews})</span>
-                </div>
-                
-                <div className="flex justify-between items-center">
-                  <span className="text-xl sm:text-2xl font-bold text-rose-600">
-                    €{producto.precio.toFixed(2)}
-                  </span>
-                  <button
-                    onClick={() => agregarAlCarrito(producto)}
-                    className="bg-gradient-to-r from-rose-500 to-orange-500 text-white px-4 sm:px-5 py-2 rounded-full font-semibold text-sm hover:from-rose-600 hover:to-orange-600 transition-all flex items-center gap-1"
-                  >
-                    🛒 <span className="hidden sm:inline">Añadir</span>
+              <div className="p-4 flex-1 flex flex-col">
+                <span className="text-xs text-[#B85C38] font-semibold uppercase tracking-wide">{p.category}</span>
+                <h3 className="font-serif font-semibold text-base mt-1">{p.name}</h3>
+                <p className="text-xs text-gray-500 mt-0.5 mb-2">{p.desc}</p>
+                <div className="mt-auto flex justify-between items-center pt-2 border-t border-gray-100">
+                  <span className="font-bold text-lg text-[#3D5A45]">${p.price.toLocaleString()}</span>
+                  <button onClick={() => addToCart(p)} className="bg-[#3D5A45] text-white px-3 py-1.5 rounded-full text-xs font-semibold hover:bg-[#2A3D30] transition flex items-center gap-1">
+                    <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M12 4v16m8-8H4"/></svg>
+                    Agregar
                   </button>
                 </div>
               </div>
             </div>
           ))}
         </div>
-      </section>
+      </div>
 
-      {/* SOBRE NOSOTROS - RESPONSIVE */}
-      <section id="nosotros" className="bg-white py-12 sm:py-20 lg:py-24">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center">
-            <div className="text-center lg:text-left">
-              <div className="flex items-center justify-center lg:justify-start gap-3 mb-4 sm:mb-6">
-                <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-gradient-to-br from-rose-400 to-orange-400 flex items-center justify-center shadow-lg">
-                  <span className="text-white text-xl font-bold">MV</span>
-                </div>
-                <div>
-                  <span className="text-rose-600 font-semibold text-sm block">Nuestra Historia</span>
-                  <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-800 leading-tight">
-                    Sobre Nosotros
-                  </h2>
-                </div>
-              </div>
-              <p className="text-gray-600 text-sm sm:text-base lg:text-lg leading-relaxed mb-4 sm:mb-6">
-                <strong>María Ve Ideas y Sabores</strong> nació de la pasión por la cocina artesanal. Cada producto es elaborado con dedicación, utilizando ingredientes frescos y de calidad, siguiendo recetas tradicionales transmitidas de generación en generación.
-              </p>
-              <p className="text-gray-600 text-sm sm:text-base lg:text-lg leading-relaxed mb-4 sm:mb-6 hidden sm:block">
-                Nuestras mermeladas, dulces y conservas se preparan en pequeñas tandas para garantizar la frescura y el sabor auténtico que nos caracteriza. Sin conservantes artificiales, solo el sabor natural de los mejores ingredientes.
-              </p>
-              <p className="text-gray-600 text-sm sm:text-base lg:text-lg leading-relaxed">
-                Cada frasco lleva el amor y la dedicación de María, quien supervisa personalmente cada elaboración para asegurar la máxima calidad.
-              </p>
-
-              <div className="grid grid-cols-3 gap-4 sm:gap-8 mt-6 sm:mt-10">
-                {[
-                  {numero: '200+', texto: 'Clientes'},
-                  {numero: '15+', texto: 'Productos'},
-                  {numero: '5', texto: 'Años'}
-                ].map((stat, i) => (
-                  <div key={i} className="text-center">
-                    <div className="text-2xl sm:text-3xl lg:text-4xl font-bold text-rose-600">{stat.numero}</div>
-                    <div className="text-gray-500 text-xs sm:text-sm">{stat.texto}</div>
-                  </div>
-                ))}
-              </div>
+      {/* CARRITO SIDEBAR */}
+      {isCartOpen && (
+        <div className="fixed inset-0 z-50 flex justify-end" onClick={() => setIsCartOpen(false)}>
+          <div className="absolute inset-0 bg-black/40" />
+          <div className="relative w-full max-w-md bg-white h-full shadow-2xl flex flex-col animate-slide-in" onClick={e => e.stopPropagation()}>
+            <div className="p-4 bg-[#3D5A45] text-white flex justify-between items-center">
+              <h3 className="font-bold font-serif text-lg">Tu Carrito</h3>
+              <button onClick={() => setIsCartOpen(false)} className="p-1 hover:bg-white/20 rounded-full text-white">✕</button>
             </div>
-
-            <div className="grid grid-cols-2 gap-3 sm:gap-4">
-              {['producto-1', 'producto-2', 'producto-3', 'producto-8'].map((img, i) => (
-                <img 
-                  key={i}
-                  src={`/products-maria/${img}.jpg`} 
-                  alt={img}
-                  className={`w-full h-32 sm:h-40 lg:h-48 object-cover rounded-lg sm:rounded-xl shadow-lg ${i % 2 === 1 ? 'mt-4 sm:mt-8' : ''}`}
-                />
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* TESTIMONIOS - RESPONSIVE */}
-      <section className="bg-rose-50 py-12 sm:py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-8 sm:mb-12">
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-800 mb-2 sm:mb-4">
-              Lo Que Dicen Nuestros Clientes
-            </h2>
-            <p className="text-gray-600 text-sm sm:text-base">
-              Clientes satisfechos nos respaldan
-            </p>
-          </div>
-
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-            {testimonios.map((t, i) => (
-              <div key={i} className="bg-white p-5 sm:p-6 lg:p-8 rounded-xl sm:rounded-2xl shadow-sm">
-                <div className="text-yellow-400 mb-3 sm:mb-4 text-lg sm:text-xl">
-                  {'★'.repeat(t.rating)}
-                </div>
-                <p className="text-gray-600 text-sm sm:text-base leading-relaxed mb-4 sm:mb-6 italic">
-                  "{t.texto}"
-                </p>
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-rose-100 flex items-center justify-center text-lg sm:text-xl">
-                    👤
-                  </div>
-                  <div>
-                    <div className="font-bold text-gray-800 text-sm sm:text-base">{t.nombre}</div>
-                    <div className="text-gray-500 text-xs sm:text-sm">{t.producto}</div>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* CONTACTO - RESPONSIVE */}
-      <section id="contacto" className="bg-white py-12 sm:py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-8 lg:gap-16">
-            <div className="text-center lg:text-left">
-              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-800 mb-4 sm:mb-6">
-                Contáctanos
-              </h2>
-              <p className="text-gray-600 text-sm sm:text-base lg:text-lg mb-6 sm:mb-8 leading-relaxed">
-                ¿Tienes alguna pregunta o quieres hacer un pedido especial? Estamos aquí para ayudarte.
-              </p>
-
-              <div className="grid grid-cols-2 lg:grid-cols-1 gap-4 sm:gap-6 mb-6 sm:mb-8">
-                {[
-                  {icon: '📞', titulo: 'Teléfono', texto: '+34 612 345 678', bg: 'bg-rose-100'},
-                  {icon: '💬', titulo: 'WhatsApp', texto: 'Respuesta inmediata', bg: 'bg-green-100'},
-                  {icon: '📍', titulo: 'Zona de Entrega', texto: 'Toda la ciudad', bg: 'bg-blue-100'},
-                  {icon: '🕐', titulo: 'Horario', texto: 'Lun-Sáb: 9:00-20:00', bg: 'bg-pink-100'}
-                ].map((c, i) => (
-                  <div key={i} className="flex items-center gap-3 p-3 sm:p-4 bg-gray-50 rounded-lg sm:rounded-xl">
-                    <div className={`w-10 h-10 sm:w-12 sm:h-12 ${c.bg} rounded-full flex items-center justify-center text-lg sm:text-xl shrink-0`}>
-                      {c.icon}
-                    </div>
-                    <div className="text-left">
-                      <div className="font-semibold text-gray-800 text-sm sm:text-base">{c.titulo}</div>
-                      <div className="text-gray-600 text-xs sm:text-sm">{c.texto}</div>
+            <div className="flex-1 overflow-y-auto p-4 space-y-3 bg-gray-50">
+              {cart.length === 0 ? <p className="text-center text-gray-400 mt-10">Tu carrito está vacío.</p> : 
+                cart.map(item => (
+                  <div key={item.id} className="flex gap-3 bg-white p-3 rounded-xl shadow-sm items-center">
+                    <img src={item.image} className="w-16 h-16 object-cover rounded-lg" />
+                    <div className="flex-1">
+                      <h4 className="font-semibold text-sm">{item.name}</h4>
+                      <p className="text-[#B85C38] font-bold text-sm">${item.price.toLocaleString()}</p>
+                      <div className="flex items-center gap-2 mt-1">
+                        <button onClick={() => updateQuantity(item.id, -1)} className="w-6 h-6 rounded-full bg-gray-200 flex items-center justify-center text-xs hover:bg-gray-300 font-bold">-</button>
+                        <span className="text-sm font-medium">{item.quantity}</span>
+                        <button onClick={() => updateQuantity(item.id, 1)} className="w-6 h-6 rounded-full bg-gray-200 flex items-center justify-center text-xs hover:bg-gray-300 font-bold">+</button>
+                      </div>
                     </div>
                   </div>
-                ))}
+                ))
+              }
+            </div>
+            <div className="p-4 border-t bg-[#FDF6E9]">
+              <div className="flex justify-between mb-3">
+                <span className="font-semibold text-gray-600">Total a pagar:</span>
+                <span className="font-display text-2xl font-bold text-[#B85C38]">${total.toLocaleString()}</span>
               </div>
-
-              <a
-                href={`https://wa.me/${WHATSAPP_NUMBER}?text=¡Hola! Me gustaría más información sobre sus productos.`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 bg-green-500 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-full font-bold text-base sm:text-lg hover:bg-green-600 transition-colors"
-              >
-                💬 Escríbenos por WhatsApp
-              </a>
-            </div>
-
-            <div className="bg-rose-50 p-5 sm:p-6 lg:p-8 rounded-xl sm:rounded-2xl">
-              <h3 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6 text-gray-800">
-                Envíanos un Mensaje
-              </h3>
-              <form onSubmit={(e) => { e.preventDefault(); alert('¡Gracias! Te contactaremos pronto.'); }}>
-                <div className="space-y-4">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1.5">Nombre</label>
-                    <input 
-                      type="text" 
-                      required
-                      className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg sm:rounded-xl focus:border-rose-400 outline-none transition-colors text-sm sm:text-base"
-                      placeholder="Tu nombre"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1.5">Teléfono</label>
-                    <input 
-                      type="tel" 
-                      required
-                      className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg sm:rounded-xl focus:border-rose-400 outline-none transition-colors text-sm sm:text-base"
-                      placeholder="Tu teléfono"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1.5">Mensaje</label>
-                    <textarea 
-                      required
-                      rows={4}
-                      className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg sm:rounded-xl focus:border-rose-400 outline-none transition-colors resize-none text-sm sm:text-base"
-                      placeholder="¿En qué podemos ayudarte?"
-                    />
-                  </div>
-                  <button
-                    type="submit"
-                    className="w-full bg-gradient-to-r from-rose-500 to-orange-500 text-white py-3 sm:py-4 rounded-lg sm:rounded-xl font-bold text-base sm:text-lg hover:from-rose-600 hover:to-orange-600 transition-all"
-                  >
-                    Enviar Mensaje
-                  </button>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* CARRITO LATERAL - RESPONSIVE */}
-      {mostrarCarrito && (
-        <>
-          <div 
-            onClick={() => setMostrarCarrito(false)}
-            className="fixed inset-0 bg-black/50 z-50"
-          />
-          <div className="fixed top-0 right-0 w-full sm:w-[420px] h-full bg-white shadow-2xl z-50 flex flex-col">
-            <div className="p-4 sm:p-6 border-b flex justify-between items-center bg-gradient-to-r from-rose-500 to-orange-500 text-white">
-              <h2 className="text-xl sm:text-2xl font-bold">🛒 Tu Pedido</h2>
-              <button 
-                onClick={() => setMostrarCarrito(false)} 
-                className="text-2xl hover:text-rose-200"
-              >
-                ✕
+              <button onClick={sendOrder} disabled={cart.length === 0} className="w-full bg-[#25D366] text-white py-3 rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-[#20BA5A] transition disabled:opacity-50 disabled:cursor-not-allowed shadow-lg">
+                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                Enviar Pedido por WhatsApp
               </button>
             </div>
-
-            <div className="flex-1 overflow-auto p-4 sm:p-6">
-              {carrito.length === 0 ? (
-                <div className="text-center py-12 text-gray-500">
-                  <p className="text-5xl sm:text-6xl mb-4">🛒</p>
-                  <p className="text-lg">Tu carrito está vacío</p>
-                  <p className="text-sm mt-1">¡Añade productos deliciosos!</p>
-                </div>
-              ) : (
-                <div className="space-y-3">
-                  {carrito.map(item => (
-                    <div key={item.id} className="flex gap-3 p-3 sm:p-4 bg-gray-50 rounded-xl">
-                      <img 
-                        src={item.imagen} 
-                        alt={item.nombre}
-                        className="w-16 h-16 sm:w-20 sm:h-20 rounded-lg object-cover"
-                      />
-                      <div className="flex-1">
-                        <p className="font-semibold text-sm sm:text-base">{item.nombre}</p>
-                        <p className="text-gray-500 text-xs sm:text-sm">€{item.precio.toFixed(2)} c/u</p>
-                        <div className="flex items-center gap-3 mt-2">
-                          <button 
-                            onClick={() => cambiarCantidad(item.id, -1)}
-                            className="w-7 h-7 sm:w-8 sm:h-8 rounded-full border border-gray-300 bg-white font-bold text-sm sm:text-base hover:bg-gray-100"
-                          >-</button>
-                          <span className="font-semibold">{item.cantidad}</span>
-                          <button 
-                            onClick={() => cambiarCantidad(item.id, 1)}
-                            className="w-7 h-7 sm:w-8 sm:h-8 rounded-full border border-gray-300 bg-white font-bold text-sm sm:text-base hover:bg-gray-100"
-                          >+</button>
-                        </div>
-                      </div>
-                      <div className="text-right">
-                        <p className="font-bold text-rose-600 text-sm sm:text-base">
-                          €{(item.precio * item.cantidad).toFixed(2)}
-                        </p>
-                        <button 
-                          onClick={() => quitarDelCarrito(item.id)} 
-                          className="mt-2 text-red-500 text-xs sm:text-sm hover:text-red-700"
-                        >
-                          Eliminar
-                        </button>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              )}
-            </div>
-
-            {carrito.length > 0 && (
-              <div className="p-4 sm:p-6 border-t bg-gray-50">
-                <div className="flex justify-between mb-2">
-                  <span className="text-gray-600">Subtotal:</span>
-                  <span>€{totalCarrito.toFixed(2)}</span>
-                </div>
-                <div className="flex justify-between mb-4 sm:mb-6">
-                  <span className="text-lg sm:text-xl font-bold">Total:</span>
-                  <span className="text-xl sm:text-2xl font-bold text-rose-600">€{totalCarrito.toFixed(2)}</span>
-                </div>
-                <button
-                  onClick={enviarPedidoWhatsApp}
-                  className="w-full bg-green-500 text-white py-3 sm:py-4 rounded-full font-bold text-base sm:text-lg hover:bg-green-600 transition-colors flex items-center justify-center gap-2"
-                >
-                  💬 Pedir por WhatsApp
-                </button>
-                <p className="text-center text-xs sm:text-sm text-gray-500 mt-3">
-                  Entrega en 24-48 horas
-                </p>
-              </div>
-            )}
-          </div>
-        </>
-      )}
-
-      {/* BOTÓN FLOTANTE WHATSAPP */}
-      <a
-        href={`https://wa.me/${WHATSAPP_NUMBER}?text=¡Hola! Me gustaría hacer un pedido.`}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="fixed bottom-4 sm:bottom-6 right-4 sm:right-6 w-14 h-14 sm:w-16 sm:h-16 bg-green-500 rounded-full flex items-center justify-center shadow-lg sm:shadow-xl hover:bg-green-600 transition-colors z-40"
-      >
-        <span className="text-2xl sm:text-3xl">💬</span>
-      </a>
-
-      {/* FOOTER - RESPONSIVE */}
-      <footer className="bg-gray-800 text-white py-8 sm:py-12 lg:py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 mb-6 sm:mb-8">
-            <div className="col-span-2 lg:col-span-1">
-              <div className="flex items-center gap-3 mb-4 sm:mb-6">
-                <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-gradient-to-br from-rose-400 to-orange-400 flex items-center justify-center shadow-lg">
-                  <span className="text-white text-xl sm:text-2xl font-bold">MV</span>
-                </div>
-                <div className="flex flex-col">
-                  <span className="text-xl sm:text-2xl font-bold">María Ve</span>
-                  <span className="text-rose-400 text-xs sm:text-sm font-medium">Ideas y Sabores</span>
-                </div>
-              </div>
-              <p className="text-gray-400 text-xs sm:text-sm leading-relaxed mb-4">
-                Mermeladas, dulces y conservas artesanales. Hechos con amor e ingredientes de primera calidad.
-              </p>
-              {/* Redes Sociales */}
-              <div className="flex gap-3">
-                <a href={`https://wa.me/${WHATSAPP_NUMBER}`} target="_blank" rel="noopener noreferrer" className="w-9 h-9 sm:w-10 sm:h-10 bg-gray-700 hover:bg-green-500 rounded-full flex items-center justify-center transition-colors text-lg">
-                  💬
-                </a>
-                <a href="#" className="w-9 h-9 sm:w-10 sm:h-10 bg-gray-700 hover:bg-pink-500 rounded-full flex items-center justify-center transition-colors text-lg">
-                  📷
-                </a>
-                <a href="#" className="w-9 h-9 sm:w-10 sm:h-10 bg-gray-700 hover:bg-blue-500 rounded-full flex items-center justify-center transition-colors text-lg">
-                  📘
-                </a>
-              </div>
-            </div>
-
-            <div>
-              <h4 className="font-bold mb-3 sm:mb-4 text-sm sm:text-base">Enlaces</h4>
-              <div className="space-y-2">
-                {['Inicio', 'Productos', 'Nosotros', 'Contacto'].map(item => (
-                  <a key={item} href={`#${item.toLowerCase()}`} className="block text-gray-400 text-xs sm:text-sm hover:text-rose-400">
-                    {item}
-                  </a>
-                ))}
-              </div>
-            </div>
-
-            <div>
-              <h4 className="font-bold mb-3 sm:mb-4 text-sm sm:text-base">Categorías</h4>
-              <div className="space-y-2">
-                {['Mermeladas', 'Dulces', 'Conservas', 'Especiales'].map(item => (
-                  <span key={item} className="block text-gray-400 text-xs sm:text-sm">{item}</span>
-                ))}
-              </div>
-            </div>
-
-            <div>
-              <h4 className="font-bold mb-3 sm:mb-4 text-sm sm:text-base">Contacto</h4>
-              <div className="space-y-2 text-gray-400 text-xs sm:text-sm">
-                <p>📞 +34 612 345 678</p>
-                <p>📍 Envíos a toda la ciudad</p>
-                <p>🕐 Lun-Sáb: 9:00-20:00</p>
-              </div>
-            </div>
-          </div>
-
-          <div className="border-t border-gray-700 pt-6 sm:pt-8 text-center">
-            <div className="flex items-center justify-center gap-2 mb-2">
-              <div className="w-8 h-8 rounded-full bg-gradient-to-br from-rose-400 to-orange-400 flex items-center justify-center">
-                <span className="text-white text-sm font-bold">MV</span>
-              </div>
-              <span className="text-gray-300 font-semibold">María Ve Ideas y Sabores</span>
-            </div>
-            <p className="text-gray-500 text-xs sm:text-sm">© 2024 María Ve Ideas y Sabores. Todos los derechos reservados.</p>
           </div>
         </div>
-      </footer>
-    </div>
+      )}
+    </main>
   );
 }
