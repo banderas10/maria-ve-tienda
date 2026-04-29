@@ -252,12 +252,12 @@ export default function Tienda() {
       }`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16 sm:h-20">
-            {/* Logo con Nombre y Slogan */}
+            {/* Logo con Nombre y Slogan - LOGO MÁS GRANDE */}
             <a href="#inicio" className="flex items-center gap-2 sm:gap-3">
-              <div className={`w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 rounded-full flex items-center justify-center shadow-lg transition-all duration-300 ${
+              <div className={`w-16 h-16 sm:w-20 sm:h-20 lg:w-24 lg:h-24 rounded-full flex items-center justify-center shadow-lg transition-all duration-300 ${
                 scrolled ? 'bg-gradient-to-br from-rose-400 to-orange-400' : 'bg-gradient-to-br from-rose-500 to-orange-500'
               }`}>
-                <span className="text-white text-xl sm:text-2xl font-bold">MV</span>
+                <span className="text-white text-2xl sm:text-3xl lg:text-4xl font-bold">MV</span>
               </div>
               <div className="flex flex-col">
                 <h1 className={`text-base sm:text-lg lg:text-xl font-bold leading-tight transition-colors ${
