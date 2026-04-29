@@ -74,11 +74,11 @@ export default function Tienda() {
 
   return (
     <main className="min-h-screen pb-24">
-     {/* NAVBAR */}
+ {/* NAVBAR */}
       <nav className="fixed top-0 w-full bg-[#FDF6E9]/95 backdrop-blur-md z-40 border-b border-gray-200 p-4 flex justify-between items-center">
         <div className="flex items-center gap-2">
-          {/* LOGO NUEVO (Imagen circular naranja) */}
-          <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full overflow-hidden flex items-center justify-center border-2 border-[#C4882F] shadow-sm bg-white">
+          {/* LOGO NUEVO - MÁS GRANDE */}
+          <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full overflow-hidden flex items-center justify-center border-2 border-[#C4882F] shadow-sm bg-white">
             <img 
               src="/logo.png" 
               alt="Maria Ve Logo" 
