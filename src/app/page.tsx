@@ -74,7 +74,7 @@ export default function Tienda() {
 
   return (
     <main className="min-h-screen pb-24">
-      {/* NAVBAR */}
+     {/* NAVBAR */}
       <nav className="fixed top-0 w-full bg-[#FDF6E9]/95 backdrop-blur-md z-40 border-b border-gray-200 p-4 flex justify-between items-center">
         <div className="flex items-center gap-2">
           {/* LOGO NUEVO (Imagen circular naranja) */}
