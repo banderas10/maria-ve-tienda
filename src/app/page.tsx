@@ -12,7 +12,7 @@ const productos = [
     precio: 8.50,
     imagen: '/products-maria/producto-1.jpg',
     descripcion: 'Mermelada artesanal de frutillas frescas. Sabor clásico y distinguido, elaborada con frutos seleccionados.',
-    categoria: 'Mermeladas',
+    categoria: 'Platos caseros',
     destacado: true,
     badge: 'Nuevo',
     rating: 4.9,
@@ -23,7 +23,7 @@ const productos = [
     nombre: 'Postre Especial de la Casa',
     precio: 12.00,
     imagen: '/products-maria/producto-2.jpg',
-    descripcion: 'Postre artesanal preparado con receta tradicional. Perfecto para ocasiones especiales.',
+    descripcion: 'Postre artesanal Alfajores de maizena preparado con receta tradicional. Perfecto para ocasiones especiales.',
     categoria: 'Postres',
     destacado: true,
     badge: 'Favorito',
@@ -48,7 +48,7 @@ const productos = [
     precio: 14.50,
     imagen: '/products-maria/producto-4.jpg',
     descripcion: 'Plato preparado con ingredientes frescos y recetas tradicionales. Como en casa.',
-    categoria: 'Platos Caseros',
+    categoria: 'Mermeladas',
     badge: 'Artesanal',
     rating: 4.7,
     reviews: 29
@@ -82,7 +82,7 @@ const productos = [
     precio: 10.00,
     imagen: '/products-maria/producto-7.jpg',
     descripcion: 'Dulce artesanal con textura suave y sabor incomparable. Hecho a mano.',
-    categoria: 'Dulces',
+    categoria: 'Conservas',
     badge: 'Delicioso',
     rating: 4.6,
     reviews: 34
@@ -157,7 +157,7 @@ const productos = [
 ];
 
 const productoDestacado = productos[7]; // Creación Gourmet Premium
-const WHATSAPP_NUMBER = '34612345678';
+const WHATSAPP_NUMBER = '+34630631088';
 
 const testimonios = [
   {
