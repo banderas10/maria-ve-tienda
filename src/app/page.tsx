@@ -246,28 +246,27 @@ export default function Tienda() {
 
   return (
     <div className="min-h-screen bg-[#fef9f3]">
-      {/* HEADER - RESPONSIVE */}
-     <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled ? 'bg-white/98 shadow-lg' : 'bg-transparent'
       }`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16 sm:h-20">
-            {/* LOGO IMAGEN GRANDE */}
+            {/* LOGO IMAGEN - MAS GRANDE Y SIN FONDO */}
             <a href="#inicio" className="flex items-center gap-2 sm:gap-3">
-              <div className="w-24 h-24 sm:w-28 sm:h-28 flex items-center justify-center transition-all duration-300">
+              <div className="w-28 h-28 sm:w-32 sm:h-32 lg:w-36 lg:h-36 flex items-center justify-center transition-all duration-300">
                 <img 
                   src="/logo.png" 
                   alt="Maria Ve Logo" 
-                  className="w-full h-full object-contain"
+                  className="w-full h-full object-contain drop-shadow-lg"
                 />
               </div>
               <div className="flex flex-col">
-                <h1 className={`text-base sm:text-lg lg:text-xl font-bold leading-tight transition-colors ${
+                <h1 className={`text-base sm:text-lg lg:text-xl font-bold leading-tight transition-colors text-white ${
                   scrolled ? 'text-rose-600' : 'text-white'
                 }`}>
                   María Ve
                 </h1>
-                <p className={`text-[9px] sm:text-xs font-medium tracking-wide transition-colors ${
+                <p className={`text-[9px] sm:text-xs font-medium tracking-wide transition-colors text-white/90 ${
                   scrolled ? 'text-gray-500' : 'text-white/90'
                 }`}>
                   Ideas y Sabores
