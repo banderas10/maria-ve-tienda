@@ -247,17 +247,19 @@ export default function Tienda() {
   return (
     <div className="min-h-screen bg-[#fef9f3]">
       {/* HEADER - RESPONSIVE */}
-      <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+     <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled ? 'bg-white/98 shadow-lg' : 'bg-transparent'
       }`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16 sm:h-20">
-            {/* Logo con Nombre y Slogan - LOGO MÁS GRANDE */}
+            {/* LOGO IMAGEN GRANDE */}
             <a href="#inicio" className="flex items-center gap-2 sm:gap-3">
-              <div className={`w-16 h-16 sm:w-20 sm:h-20 lg:w-24 lg:h-24 rounded-full flex items-center justify-center shadow-lg transition-all duration-300 ${
-                scrolled ? 'bg-gradient-to-br from-rose-400 to-orange-400' : 'bg-gradient-to-br from-rose-500 to-orange-500'
-              }`}>
-                <span className="text-white text-2xl sm:text-3xl lg:text-4xl font-bold">MV</span>
+              <div className="w-24 h-24 sm:w-28 sm:h-28 flex items-center justify-center transition-all duration-300">
+                <img 
+                  src="/logo.png" 
+                  alt="Maria Ve Logo" 
+                  className="w-full h-full object-contain"
+                />
               </div>
               <div className="flex flex-col">
                 <h1 className={`text-base sm:text-lg lg:text-xl font-bold leading-tight transition-colors ${
