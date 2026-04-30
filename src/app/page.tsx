@@ -8,7 +8,7 @@ import { useState, useEffect } from 'react';
 const productos = [
   {
     id: 1,
-    nombre: 'Mermelada Artesanal de Frutillas',
+    nombre: 'Plato Artesanal de Garbanzos',
     precio: 8.50,
     imagen: '/products-maria/producto-1.jpg',
     descripcion: 'Mermelada artesanal de frutillas frescas. Sabor clásico y distinguido, elaborada con frutos seleccionados.',
