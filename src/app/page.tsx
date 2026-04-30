@@ -11,7 +11,7 @@ const productos = [
     nombre: 'Plato Artesanal de Garbanzos',
     precio: 8.50,
     imagen: '/products-maria/producto-1.jpg',
-    descripcion: 'Mermelada artesanal de frutillas frescas. Sabor clásico y distinguido, elaborada con frutos seleccionados.',
+    descripcion: 'Garbanzosa artesanal caseros. Sabor clásico y distinguido, elaborada con frutos seleccionados.',
     categoria: 'Platos caseros',
     destacado: true,
     badge: 'Nuevo',
