@@ -8,11 +8,11 @@ import { useState, useEffect } from 'react';
 const productos = [
   {
     id: 1,
-    nombre: 'Mermelada Artesanal de Frutillas',
+    nombre: 'Garbanzos Caseros',
     precio: 8.50,
     imagen: '/products-maria/producto-1.jpg',
     descripcion: 'Mermelada artesanal de frutillas frescas. Sabor clásico y distinguido, elaborada con frutos seleccionados.',
-    categoria: 'Mermeladas',
+    categoria: 'Platos Caseros',
     destacado: true,
     badge: 'Nuevo',
     rating: 4.9,
@@ -20,7 +20,7 @@ const productos = [
   },
   {
     id: 2,
-    nombre: 'Postre Especial de la Casa',
+    nombre: 'Alfajores Especial de la Casa',
     precio: 12.00,
     imagen: '/products-maria/producto-2.jpg',
     descripcion: 'Postre artesanal preparado con receta tradicional. Perfecto para ocasiones especiales.',
@@ -44,18 +44,18 @@ const productos = [
   },
   {
     id: 4,
-    nombre: 'Plato Casero Artesanal',
+    nombre: 'Cebollas Artesanales al Malbec',
     precio: 14.50,
     imagen: '/products-maria/producto-4.jpg',
     descripcion: 'Plato preparado con ingredientes frescos y recetas tradicionales. Como en casa.',
-    categoria: 'Platos Caseros',
+    categoria: 'Conservas',
     badge: 'Artesanal',
     rating: 4.7,
     reviews: 29
   },
   {
     id: 5,
-    nombre: 'Especialidad de María',
+    nombre: 'Especialidad de María de Pascua',
     precio: 11.00,
     imagen: '/products-maria/producto-5.jpg',
     descripcion: 'Creación especial de María, con ingredientes premium y mucho amor.',
@@ -78,11 +78,11 @@ const productos = [
   },
   {
     id: 7,
-    nombre: 'Dulce Especial de Autor',
+    nombre: 'Pimientos agridulce Especial de Autor',
     precio: 10.00,
     imagen: '/products-maria/producto-7.jpg',
     descripcion: 'Dulce artesanal con textura suave y sabor incomparable. Hecho a mano.',
-    categoria: 'Dulces',
+    categoria: 'Conservas',
     badge: 'Delicioso',
     rating: 4.6,
     reviews: 34
