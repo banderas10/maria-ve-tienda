@@ -250,28 +250,22 @@ export default function Tienda() {
       <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled ? 'bg-white/98 shadow-lg' : 'bg-transparent'
       }`}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16 sm:h-20">
-            {/* Logo con Nombre y Slogan */}
-            <a href="#inicio" className="flex items-center gap-2 sm:gap-3">
-              <div className={`w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 rounded-full flex items-center justify-center shadow-lg transition-all duration-300 ${
-                scrolled ? 'bg-gradient-to-br from-rose-400 to-orange-400' : 'bg-gradient-to-br from-rose-500 to-orange-500'
-              }`}>
-                <span className="text-white text-xl sm:text-2xl font-bold">MV</span>
-              </div>
-              <div className="flex flex-col">
-                <h1 className={`text-base sm:text-lg lg:text-xl font-bold leading-tight transition-colors ${
-                  scrolled ? 'text-rose-600' : 'text-white'
-                }`}>
-                  María Ve
-                </h1>
-                <p className={`text-[9px] sm:text-xs font-medium tracking-wide transition-colors ${
-                  scrolled ? 'text-gray-500' : 'text-white/90'
-                }`}>
-                  Ideas y Sabores
-                </p>
-              </div>
-            </a>
+              {/* NAVBAR CON DEGRADADO Y LOGO NARANJA */}
+      <nav className="fixed top-0 w-full bg-gradient-to-r from-rose-500 to-orange-400 z-40 border-b border-rose-300 p-4 flex justify-between items-center shadow-lg">
+        <div className="flex items-center gap-2">
+          {/* LOGO NARANJA GRANDE */}
+          <div className="w-24 h-24 sm:w-28 sm:h-28 lg:w-32 lg:h-32 flex items-center justify-center transition-all duration-300">
+            <img 
+              src="/logo.png" 
+              alt="Maria Ve Ideas y Sabores Logo" 
+              className="w-full h-full object-contain drop-shadow-lg"
+            />
+          </div>
+          <div className="hidden sm:block">
+            <span className="font-serif font-bold text-white text-lg drop-shadow">Maria Ve</span>
+            <span className="block text-xs text-white/80 -mt-1">Ideas y Sabores</span>
+          </div>
+        </div>
             
             {/* Navegación Desktop */}
             <nav className="hidden md:flex gap-6 lg:gap-8">
