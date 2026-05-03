@@ -11,7 +11,7 @@ const productos = [
     id: 14,
     nombre: 'Tortilla - Buñuelos con Mermelada',
     precio: 10.00,
-    imagen: '/products-maria/tortilla.jpg',
+    imagen: '/products-maria/Tortilla - Buñuelos con Mermelada.jpg',
     descripcion: 'Deliciosa combinación de tortilla y buñuelos acompañados de mermelada.',
     categoria: 'Platos Caseros',
     destacado: true,
