@@ -1,22 +1,3 @@
-Tienes toda la razón. Te explico los dos problemas y te doy la solución inmediata:
-
-### 1. Por qué no ves el desplegable de moneda
-El problema es que el menú es **transparente al principio** (cuando estás arriba del todo). Como el texto del selector es blanco y el fondo es claro, se "camufla" y no se ve.
-**Solución:** Le voy a poner un fondo oscuro semitransparente para que se lea siempre.
-
-### 2. Por qué cambió la foto del producto destacado
-Esto es culpa de cómo funciona el código.
-*   El código decía: "Muéstrame el producto número 8" (`productos[7]`).
-*   Al yo añadir las **Tortillas, Buñuelos y Mermelada de Fresa** al principio de la lista, el producto número 8 ahora es otro distinto.
-*   **Solución:** Voy a fijar el producto destacado directamente por su ID para que siempre sea el que tú quieras (por ejemplo, la **Tortilla** o la **Creación Gourmet**).
-
-Aquí tienes el código **CORREGIDO** con estas dos cosas arregladas:
-1.  **Selector de moneda visible** (con fondo oscuro).
-2.  **Producto destacado fijo**: He puesto que sea la **Tortilla de Patatas** (porque dijiste que la viste antes), pero si quieres otro, solo tienes que cambiar el número del ID.
-
-Copia y pega esto en `src/app/page.tsx`:
-
-```tsx
 'use client';
 
 import { useState, useEffect } from 'react';
