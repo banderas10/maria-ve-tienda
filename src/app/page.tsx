@@ -9,13 +9,13 @@ const productos = [
   // --- NUEVOS PRODUCTOS ---
   {
     id: 14,
-    nombre: 'Tortilla-buñuelos',
+    nombre: 'Tortilla - Buñuelos con Mermelada',
     precio: 10.00,
     imagen: '/products-maria/tortilla.jpg',
-    descripcion: 'Tortilla española clásica, jugosa por dentro y dorada por fuera.',
+    descripcion: 'Deliciosa combinación de tortilla y buñuelos acompañados de mermelada.',
     categoria: 'Platos Caseros',
     destacado: true,
-    badge: 'Clásico',
+    badge: 'Especial',
     rating: 4.9,
     reviews: 78
   },
@@ -50,7 +50,7 @@ const productos = [
   { id: 5, nombre: 'Especialidad de María de Pascua', precio: 11.00, imagen: '/products-maria/producto-5.jpg', descripcion: 'Creación especial de María, con ingredientes premium.', categoria: 'Postres', badge: 'Gourmet', rating: 4.8, reviews: 23 },
   { id: 6, nombre: 'Conserva Tradicional', precio: 9.50, imagen: '/products-maria/producto-6.jpg', descripcion: 'Conserva elaborada siguiendo métodos tradicionales.', categoria: 'Conservas', destacado: true, badge: 'Clásico', rating: 5.0, reviews: 89 },
   { id: 7, nombre: 'Pimientos agridulce Especial', precio: 10.00, imagen: '/products-maria/producto-7.jpg', descripcion: 'Dulce artesanal con textura suave y sabor incomparable.', categoria: 'Conservas', badge: 'Delicioso', rating: 4.6, reviews: 34 },
-  { id: 8, nombre: 'Tortilla Creación Gourmet Premium', precio: 15.00, imagen: '/products-maria/producto-8.jpg', descripcion: 'Plato gourmet de autor, preparado con los mejores ingredientes.', categoria: 'Platos Caseros', destacado: true, badge: 'Exclusivo', rating: 4.9, reviews: 52 },
+  { id: 8, nombre: 'Tortilla Creación Gourmet', precio: 15.00, imagen: '/products-maria/producto-8.jpg', descripcion: 'Plato gourmet de autor, preparado con los mejores ingredientes.', categoria: 'Platos Caseros', destacado: true, badge: 'Exclusivo', rating: 4.9, reviews: 52 },
   { id: 9, nombre: 'Mermelada de Duraznos', precio: 8.50, imagen: '/products-maria/mermelada-duraznos.jpg', descripcion: 'Dulce cremoso y aromático.', categoria: 'Mermeladas', badge: 'Natural', rating: 4.8, reviews: 67 },
   { id: 10, nombre: 'Mermelada de Pimientos', precio: 9.00, imagen: '/products-maria/mermelada-pimientos.jpg', descripcion: 'Receta clásica con un sabor diferente.', categoria: 'Mermeladas', badge: 'Único', rating: 4.9, reviews: 38 },
   { id: 11, nombre: 'Pasta de Aceitunas', precio: 10.50, imagen: '/products-maria/pasta-aceitunas.jpg', descripcion: 'Pasta cremosa de aceitunas seleccionadas.', categoria: 'Conservas', badge: 'Mediterráneo', rating: 4.7, reviews: 29 },
@@ -58,12 +58,12 @@ const productos = [
   { id: 13, nombre: 'Dulce de Leche Tradicional', precio: 9.50, imagen: '/products-maria/dulce-leche.jpg', descripcion: 'Elaborado a fuego lento con receta antigua.', categoria: 'Dulces', badge: 'Tradicional', rating: 5.0, reviews: 89 }
 ];
 
-// --- CORRECCIÓN: FIJAR EL PRODUCTO DESTACADO POR ID ---
-// Usamos .find para buscar por ID. Así no importa el orden de la lista.
-// Si quieres cambiar el destacado, cambia el número 14 por otro ID (ej. 8 para Gourmet).
-const productoDestacado = productos.find(para => p.id === 8) || productos[0];
+// --- PRODUCTO DESTACADO: ID 8 (Tortilla Creación Gourmet) ---
+const productoDestacado = productos.find(p => p.id === 8) || productos[0];
 
 const WHATSAPP_NUMBER = '34612345678';
+
+// ... (EL RESTO DEL CÓDIGO SIGUE IGUAL A PARTIR DE AQUÍ)
 
 const testimonios = [
   { nombre: 'Carmen López', texto: 'El dulce de leche es espectacular. ¡Ya es mi tercera compra!', rating: 5, producto: 'Dulce de Leche Tradicional' },
