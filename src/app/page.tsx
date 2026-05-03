@@ -271,7 +271,7 @@ export default function Tienda() {
           {productosFiltrados.map(producto => (
             <div key={producto.id} className="bg-white rounded-xl sm:rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-shadow relative group">
               {producto.badge && (<span className="absolute top-3 left-3 bg-gradient-to-r from-rose-500 to-orange-500 text-white px-3 py-1 rounded-full text-xs font-bold z-10">{producto.badge}</span>)}
-              <div className="h-48 sm:h-56 overflow-hidden">
+              <div className="h-64 sm:h-72 overflow-hidden">
                 <img src={producto.imagen} alt={producto.nombre} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
               </div>
               <div className="p-4 sm:p-5">
