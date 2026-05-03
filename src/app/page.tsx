@@ -2,6 +2,24 @@
 
 import { useState, useEffect } from 'react';
 
+// ================= MONEDA =================
+const MONEDA_USUARIO = 'ARS'; // cambiar a 'EUR' si quieres
+const CAMBIO_EUR_ARS = 1000;
+
+const convertirPrecio = (precioEUR: number) => {
+  return MONEDA_USUARIO === 'ARS' ? precioEUR * CAMBIO_EUR_ARS : precioEUR;
+};
+
+const formatearPrecio = (precio: number) => {
+  return new Intl.NumberFormat(
+    MONEDA_USUARIO === 'ARS' ? 'es-AR' : 'es-ES',
+    {
+      style: 'currency',
+      currency: MONEDA_USUARIO,
+      minimumFractionDigits: 0
+    }
+  ).format(precio);
+};
 // ============================================
 // PRODUCTOS - MARÍA VE IDEAS Y SABORES
 // ============================================
