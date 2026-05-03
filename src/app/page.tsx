@@ -271,9 +271,19 @@ export default function Tienda() {
           {productosFiltrados.map(producto => (
             <div key={producto.id} className="bg-white rounded-xl sm:rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-shadow relative group">
               {producto.badge && (<span className="absolute top-3 left-3 bg-gradient-to-r from-rose-500 to-orange-500 text-white px-3 py-1 rounded-full text-xs font-bold z-10">{producto.badge}</span>)}
-              <div className="h-64 sm:h-72 overflow-hidden">
-                <img src={producto.imagen} alt={producto.nombre} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+              
+              {/* CAMBIO: Añadimos fondo blanco y lógica para ver la foto entera o cortada */}
+              <div className={`h-64 sm:h-72 overflow-hidden bg-white`}>
+                <img 
+                  src={producto.imagen} 
+                  alt={producto.nombre} 
+                  className={`w-full h-full transition-transform duration-300 group-hover:scale-105 ${
+                    // Si es el ID 13 (Dulce de Leche), mostramos la foto entera (contain), si no, la rellenamos (cover)
+                    producto.id === 13 ? 'object-contain' : 'object-cover'
+                  }`}
+                />
               </div>
+              
               <div className="p-4 sm:p-5">
                 <div className="flex justify-between items-start gap-2 mb-2">
                   <h3 className="font-bold text-base sm:text-lg text-gray-800 leading-tight">{producto.nombre}</h3>
