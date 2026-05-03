@@ -4,6 +4,31 @@ import { useState, useEffect } from 'react';
 // PRODUCTOS - MARÍA VE IDEAS Y SABORES
 // ============================================
 const productos = [
+ // --- NUEVOS PRODUCTOS AÑADIDOS ---
+  {
+    id: 14,
+    nombre: 'Tortilla de Patatas',
+    precio: 10.00,
+    imagen: '/products-maria/tortilla-buñuelos.jpg',
+    descripcion: 'Tortilla española clásica, jugosa por dentro y dorada por fuera. Elaborada con huevos frescos y patatas de calidad.',
+    categoria: 'Platos Caseros',
+    destacado: true,
+    badge: 'Clásico',
+    rating: 4.9,
+    reviews: 78
+  },
+   {
+    id: 16,
+    nombre: 'Mermelada de Fresa',
+    precio: 8.50,
+    imagen: '/products-maria/mermelada-fresa.jpg',
+    descripcion: 'Mermelada natural elaborada con fresas frescas de temporada. Dulzura y sabor intensos sin aditivos.',
+    categoria: 'Mermeladas',
+    badge: 'Natural',
+    rating: 4.9,
+    reviews: 62
+  },
+  // --- PRODUCTOS ORIGINALES ---
   {
     id: 1,
     nombre: 'Garbanzos Caseros',
