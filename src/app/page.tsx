@@ -9,7 +9,7 @@ const productos = [
   // --- NUEVOS PRODUCTOS ---
   {
     id: 14,
-    nombre: 'Tortilla de Patatas',
+    nombre: 'Tortilla-buñuelos',
     precio: 10.00,
     imagen: '/products-maria/tortilla.jpg',
     descripcion: 'Tortilla española clásica, jugosa por dentro y dorada por fuera.',
@@ -61,7 +61,7 @@ const productos = [
 // --- CORRECCIÓN: FIJAR EL PRODUCTO DESTACADO POR ID ---
 // Usamos .find para buscar por ID. Así no importa el orden de la lista.
 // Si quieres cambiar el destacado, cambia el número 14 por otro ID (ej. 8 para Gourmet).
-const productoDestacado = productos.find(p => p.id === 14) || productos[0];
+const productoDestacado = productos.find(para => p.id === 8) || productos[0];
 
 const WHATSAPP_NUMBER = '34612345678';
 
