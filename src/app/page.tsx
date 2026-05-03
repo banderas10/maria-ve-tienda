@@ -1,25 +1,5 @@
-'use client';
-
 import { useState, useEffect } from 'react';
 
-// ================= MONEDA =================
-const MONEDA_USUARIO = 'ARS'; // cambiar a 'EUR' si quieres
-const CAMBIO_EUR_ARS = 1000;
-
-const convertirPrecio = (precioEUR: number) => {
-  return MONEDA_USUARIO === 'ARS' ? precioEUR * CAMBIO_EUR_ARS : precioEUR;
-};
-
-const formatearPrecio = (precio: number) => {
-  return new Intl.NumberFormat(
-    MONEDA_USUARIO === 'ARS' ? 'es-AR' : 'es-ES',
-    {
-      style: 'currency',
-      currency: MONEDA_USUARIO,
-      minimumFractionDigits: 0
-    }
-  ).format(precio);
-};
 // ============================================
 // PRODUCTOS - MARÍA VE IDEAS Y SABORES
 // ============================================
@@ -268,22 +248,28 @@ export default function Tienda() {
       <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled ? 'bg-white/98 shadow-lg' : 'bg-transparent'
       }`}>
-              {/* NAVBAR CON DEGRADADO Y LOGO NARANJA */}
-      <nav className="fixed top-0 w-full bg-gradient-to-r from-rose-500 to-orange-400 z-40 border-b border-rose-300 p-4 flex justify-between items-center shadow-lg">
-        <div className="flex items-center gap-2">
-          {/* LOGO NARANJA GRANDE */}
-          <div className="w-24 h-24 sm:w-28 sm:h-28 lg:w-32 lg:h-32 flex items-center justify-center transition-all duration-300">
-            <img 
-              src="/logo.png" 
-              alt="Maria Ve Ideas y Sabores Logo" 
-              className="w-full h-full object-contain drop-shadow-lg"
-            />
-          </div>
-          <div className="hidden sm:block">
-            <span className="font-serif font-bold text-white text-lg drop-shadow">Maria Ve</span>
-            <span className="block text-xs text-white/80 -mt-1">Ideas y Sabores</span>
-          </div>
-        </div>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center h-16 sm:h-20">
+            {/* Logo con Nombre y Slogan - CAMBIADO A IMAGEN */}
+            <a href="#inicio" className="flex items-center gap-2 sm:gap-3">
+              <img 
+                src="/logo-maria.png" 
+                alt="Logo María Ve Ideas y Sabores" 
+                className="h-12 w-12 sm:h-14 sm:w-14 lg:h-16 lg:w-16 rounded-full object-cover shadow-lg"
+              />
+              <div className="flex flex-col">
+                <h1 className={`text-base sm:text-lg lg:text-xl font-bold leading-tight transition-colors ${
+                  scrolled ? 'text-rose-600' : 'text-white'
+                }`}>
+                  María Ve
+                </h1>
+                <p className={`text-[9px] sm:text-xs font-medium tracking-wide transition-colors ${
+                  scrolled ? 'text-gray-500' : 'text-white/90'
+                }`}>
+                  Ideas y Sabores
+                </p>
+              </div>
+            </a>
             
             {/* Navegación Desktop */}
             <nav className="hidden md:flex gap-6 lg:gap-8">
@@ -524,9 +510,12 @@ export default function Tienda() {
           <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center">
             <div className="text-center lg:text-left">
               <div className="flex items-center justify-center lg:justify-start gap-3 mb-4 sm:mb-6">
-                <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-gradient-to-br from-rose-400 to-orange-400 flex items-center justify-center shadow-lg">
-                  <span className="text-white text-xl font-bold">MV</span>
-                </div>
+                {/* LOGO CAMBIADO A IMAGEN */}
+                <img 
+                  src="/logo-maria.png" 
+                  alt="Logo María Ve Ideas y Sabores" 
+                  className="h-12 w-12 sm:h-14 sm:w-14 rounded-full object-cover shadow-lg"
+                />
                 <div>
                   <span className="text-rose-600 font-semibold text-sm block">Nuestra Historia</span>
                   <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-800 leading-tight">
@@ -802,9 +791,12 @@ export default function Tienda() {
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 mb-6 sm:mb-8">
             <div className="col-span-2 lg:col-span-1">
               <div className="flex items-center gap-3 mb-4 sm:mb-6">
-                <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-gradient-to-br from-rose-400 to-orange-400 flex items-center justify-center shadow-lg">
-                  <span className="text-white text-xl sm:text-2xl font-bold">MV</span>
-                </div>
+                {/* LOGO CAMBIADO A IMAGEN */}
+                <img 
+                  src="/logo-maria.png" 
+                  alt="Logo María Ve Ideas y Sabores" 
+                  className="h-14 w-14 sm:h-16 sm:w-16 rounded-full object-cover shadow-lg"
+                />
                 <div className="flex flex-col">
                   <span className="text-xl sm:text-2xl font-bold">María Ve</span>
                   <span className="text-rose-400 text-xs sm:text-sm font-medium">Ideas y Sabores</span>
@@ -859,9 +851,12 @@ export default function Tienda() {
 
           <div className="border-t border-gray-700 pt-6 sm:pt-8 text-center">
             <div className="flex items-center justify-center gap-2 mb-2">
-              <div className="w-8 h-8 rounded-full bg-gradient-to-br from-rose-400 to-orange-400 flex items-center justify-center">
-                <span className="text-white text-sm font-bold">MV</span>
-              </div>
+              {/* LOGO PEQUEÑO EN FOOTER CAMBIADO */}
+              <img 
+                src="/logo-maria.png" 
+                alt="Logo" 
+                className="h-8 w-8 rounded-full object-cover"
+              />
               <span className="text-gray-300 font-semibold">María Ve Ideas y Sabores</span>
             </div>
             <p className="text-gray-500 text-xs sm:text-sm">© 2024 María Ve Ideas y Sabores. Todos los derechos reservados.</p>
