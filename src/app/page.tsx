@@ -55,7 +55,7 @@ const productos = [
   { id: 10, nombre: 'Mermelada de Pimientos', precio: 9.00, imagen: '/products-maria/mermelada-pimientos.jpg', descripcion: 'Receta clásica con un sabor diferente.', categoria: 'Mermeladas', badge: 'Único', rating: 4.9, reviews: 38 },
   { id: 11, nombre: 'Pasta de Aceitunas', precio: 10.50, imagen: '/products-maria/pasta-aceitunas.jpg', descripcion: 'Pasta cremosa de aceitunas seleccionadas.', categoria: 'Conservas', badge: 'Mediterráneo', rating: 4.7, reviews: 29 },
   { id: 12, nombre: 'Ajos Confitados en Aceto', precio: 11.00, imagen: '/products-maria/ajos-confitados.jpg', descripcion: 'Dientes de ajo confitados en aceto balsámico.', categoria: 'Conservas', badge: 'Gourmet', rating: 4.8, reviews: 23 },
-  { id: 13, nombre: 'Dulce de Leche Tradicional', precio: 9.50, imagen: '/products-maria/dulce-leche.jpg', descripcion: 'Elaborado a fuego lento con receta antigua.', categoria: 'Dulces', badge: 'Tradicional', rating: 5.0, reviews: 89 }
+  { id: 13, nombre: 'Dulce de Leche Tradicional', precio: 9.50, imagen: '/products-maria/dulce-leche.jpg?v=2024', descripcion: 'Elaborado a fuego lento con receta antigua.', categoria: 'Dulces', badge: 'Tradicional', rating: 5.0, reviews: 89 }
 ];
 
 // --- PRODUCTO DESTACADO: ID 8 (Tortilla Creación Gourmet) ---
