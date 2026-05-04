@@ -59,7 +59,7 @@ const productos = [
 ];
 
 const productoDestacado = productos.find(p => p.id === 8) || productos[0];
-const WHATSAPP_NUMBER = '34630631088';
+const WHATSAPP_NUMBER = '+34630631088';
 
 const testimonios = [
   { nombre: 'Carmen López', texto: 'El dulce de leche es espectacular. ¡Ya es mi tercera compra!', rating: 5, producto: 'Dulce de Leche Tradicional' },
