@@ -23,7 +23,7 @@ const productos = [
     id: 15,
     nombre: 'Buñuelos de Viento',
     precio: 7.50,
-    imagen: '/products-maria/bunuelos.jpg',
+    imagen: '/products-maria/totilla-autor.jpg',
     descripcion: 'Buñuelos caseros esponjosos y dorados. Rellenos de crema.',
     categoria: 'Postres',
     destacado: true,
