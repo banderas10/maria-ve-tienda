@@ -259,75 +259,91 @@ export default function Tienda() {
         </div>
       </section>
 
-      {/* PRODUCTOS */}
+       {/* PRODUCTOS - ESTILO GOURMET VISUAL */}
       <section id="productos" className="max-w-7xl mx-auto px-6 lg:px-8 py-20">
         <div className="text-center mb-16">
           <span className="text-amber-600 text-[10px] tracking-[0.3em] uppercase font-medium">Selección Exclusiva</span>
           <h2 className="text-3xl lg:text-4xl font-light text-stone-800 mt-2 tracking-tight">Nuestras Creaciones</h2>
-          <p className="text-stone-500 mt-4 font-sans text-sm max-w-xl mx-auto">Mermeladas, dulces y conservas artesanales elaboradas con pasión y los mejores ingredientes.</p>
+          <div className="w-16 h-px bg-amber-500 mx-auto mt-4"></div>
         </div>
 
-        <div className="flex flex-wrap justify-center gap-3 mb-12">
+        {/* Filtros estilo minimalista */}
+        <div className="flex flex-wrap justify-center gap-4 mb-12">
           {categorias.map(cat => (
-            <button key={cat} onClick={() => setCategoriaActiva(cat)} className={`px-6 py-2 text-xs uppercase tracking-widest transition-all border ${categoriaActiva === cat ? 'bg-stone-900 text-amber-500 border-stone-900' : 'bg-transparent text-stone-600 border-stone-300 hover:border-amber-500 hover:text-amber-600'}`}>{cat}</button>
+            <button
+              key={cat}
+              onClick={() => setCategoriaActiva(cat)}
+              className={`px-5 py-2 text-[11px] uppercase tracking-[0.15em] transition-all duration-300 border-b-2 ${
+                categoriaActiva === cat 
+                ? 'border-amber-500 text-stone-900 font-medium' 
+                : 'border-transparent text-stone-400 hover:text-stone-600'
+              }`}
+            >
+              {cat}
+            </button>
           ))}
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        {/* Grid Estilo Masonry (Pinterest) - Visual y Profesional */}
+        {/* Nota: Usamos 'columns' en lugar de 'grid' para un diseño orgánico */}
+        <div className="columns-1 sm:columns-2 lg:columns-3 gap-6 space-y-6">
           {productosFiltrados.map(producto => (
-            <div key={producto.id} className="group bg-white border border-stone-200 hover:border-amber-500 hover:shadow-xl transition-all duration-300 overflow-hidden relative">
-              {producto.badge && (<span className="absolute top-3 left-3 bg-stone-900 text-amber-500 px-3 py-1 text-[10px] uppercase tracking-widest z-10">{producto.badge}</span>)}
-              
-              <div className="h-64 overflow-hidden bg-stone-100">
-                <img src={producto.imagen} alt={producto.nombre} className={`w-full h-full transition-transform duration-700 group-hover:scale-105 ${producto.id === 13 ? 'object-contain' : 'object-cover'}`} />
+            <div 
+              key={producto.id} 
+              className="break-inside-avoid bg-white rounded-sm overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 group border border-stone-100"
+            >
+              {/* Contenedor de imagen flexible (no cuadrado fijo) */}
+              <div className="relative overflow-hidden bg-stone-50">
+                {producto.badge && (
+                  <span className="absolute top-4 left-4 bg-stone-900/80 text-amber-400 px-3 py-1 text-[9px] uppercase tracking-widest z-10 backdrop-blur-sm">
+                    {producto.badge}
+                  </span>
+                )}
+                
+                <img
+                  src={producto.imagen}
+                  alt={producto.nombre}
+                  className="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-105"
+                  // Si es el ID 13, mantenemos la proporción, si no, cubrimos
+                  style={{ minHeight: '200px' }}
+                />
+                
+                {/* Overlay elegante al pasar el ratón */}
+                <div className="absolute inset-0 bg-stone-900/0 group-hover:bg-stone-900/20 transition-all duration-500 flex items-center justify-center">
+                   <button 
+                    onClick={() => agregarAlCarrito(producto)}
+                    className="opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-500 bg-white text-stone-900 px-6 py-3 text-xs uppercase tracking-widest font-medium hover:bg-amber-500 hover:text-white"
+                   >
+                     Añadir
+                   </button>
+                </div>
               </div>
               
+              {/* Información del producto - Estilo Editorial */}
               <div className="p-6">
-                <div className="flex justify-between items-start gap-2 mb-2">
-                  <h3 className="font-light text-lg text-stone-800 tracking-tight">{producto.nombre}</h3>
-                  <span className="bg-stone-100 text-stone-600 px-2 py-0.5 text-[9px] uppercase tracking-wider">{producto.categoria}</span>
+                <div className="flex justify-between items-start mb-3">
+                  <h3 className="font-serif text-lg text-stone-800 leading-tight tracking-tight group-hover:text-amber-700 transition-colors">
+                    {producto.nombre}
+                  </h3>
+                  <span className="text-amber-600 text-xl font-light ml-4">
+                    {formatearPrecio(producto.precio)}
+                  </span>
                 </div>
                 
-                <p className="text-stone-500 text-xs mb-4 font-sans line-clamp-2">{producto.descripcion}</p>
+                <p className="text-stone-400 text-xs mb-4 font-sans leading-relaxed line-clamp-2">
+                  {producto.descripcion}
+                </p>
 
-                <div className="flex items-center justify-between border-t border-stone-100 pt-4">
-                  <span className="text-xl text-amber-600 font-light">{formatearPrecio(producto.precio)}</span>
-                  <button onClick={() => agregarAlCarrito(producto)} className="bg-transparent border border-stone-900 text-stone-900 px-4 py-2 text-xs uppercase tracking-widest hover:bg-stone-900 hover:text-amber-500 transition-all flex items-center gap-1">Añadir +</button>
+                <div className="flex items-center justify-between border-t border-stone-100 pt-4 mt-4">
+                  <div className="flex items-center gap-2">
+                    <span className="text-amber-500 text-xs tracking-wider">★★★★★</span>
+                    <span className="text-stone-300 text-[10px]">{producto.reviews}</span>
+                  </div>
+                  <span className="text-stone-300 text-[10px] uppercase tracking-wider">{producto.categoria}</span>
                 </div>
               </div>
             </div>
           ))}
-        </div>
-      </section>
-
-      {/* NOSOTROS */}
-      <section id="nosotros" className="bg-white py-20 lg:py-28">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
-            <div className="text-center lg:text-left">
-              <span className="text-amber-600 text-[10px] tracking-[0.3em] uppercase font-medium">Nuestra Esencia</span>
-              <h2 className="text-3xl lg:text-4xl font-light text-stone-800 mt-2 tracking-tight">Sobre Nosotros</h2>
-              
-              <p className="text-stone-600 font-sans text-sm leading-relaxed mt-6 mb-6">
-                <strong className="text-stone-800 font-serif">María Ve Ideas y Sabores</strong> nació de la pasión por la cocina artesanal. Cada producto es elaborado con dedicación, utilizando ingredientes frescos y de calidad.
-              </p>
-
-              <div className="grid grid-cols-3 gap-4 mt-10 max-w-md mx-auto lg:mx-0">
-                {[{numero: '200+', texto: 'Clientes'}, {numero: '15+', texto: 'Productos'}, {numero: '5', texto: 'Años'}].map((stat, i) => (
-                  <div key={i} className="text-center">
-                    <div className="text-3xl font-light text-amber-600">{stat.numero}</div>
-                    <div className="text-stone-400 text-[10px] uppercase tracking-widest mt-1">{stat.texto}</div>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <div className="grid grid-cols-2 gap-4">
-              {['producto-1', 'producto-2', 'producto-3', 'producto-8'].map((img, i) => (
-                <img key={i} src={`/products-maria/${img}.jpg`} alt={img} className={`w-full h-48 object-cover border border-stone-200 ${i % 2 === 1 ? 'mt-8' : ''}`} />
-              ))}
-            </div>
-          </div>
         </div>
       </section>
 
