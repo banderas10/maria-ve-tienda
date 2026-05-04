@@ -11,7 +11,7 @@ const productos = [
     id: 14,
     nombre: 'Tortilla - Buñuelos con Mermelada',
     precio: 10.00,
-    imagen: '/products-maria/Tortilla - Buñuelos con Mermelada.jpg',
+    imagen: '/products-maria/tortilla.jpg',
     descripcion: 'Deliciosa combinación de tortilla y buñuelos acompañados de mermelada.',
     categoria: 'Platos Caseros',
     destacado: true,
@@ -21,11 +21,11 @@ const productos = [
   },
   {
     id: 15,
-    nombre: 'Tortillas de MariVe de Autor.jpg',
+    nombre: 'Buñuelos de Viento',
     precio: 7.50,
-    imagen: '/products-maria/Tortillas de MariVe de Autor.jpg',
+    imagen: '/products-maria/bunuelos.jpg',
     descripcion: 'Buñuelos caseros esponjosos y dorados. Rellenos de crema.',
-    categoria: 'Platos Caseros',
+    categoria: 'Postres',
     destacado: true,
     badge: 'Casero',
     rating: 4.8,
@@ -58,12 +58,8 @@ const productos = [
   { id: 13, nombre: 'Dulce de Leche Tradicional', precio: 9.50, imagen: '/products-maria/dulce-leche.jpg?v=2024', descripcion: 'Elaborado a fuego lento con receta antigua.', categoria: 'Dulces', badge: 'Tradicional', rating: 5.0, reviews: 89 }
 ];
 
-// --- PRODUCTO DESTACADO: ID 8 (Tortilla Creación Gourmet) ---
 const productoDestacado = productos.find(p => p.id === 8) || productos[0];
-
 const WHATSAPP_NUMBER = '34612345678';
-
-// ... (EL RESTO DEL CÓDIGO SIGUE IGUAL A PARTIR DE AQUÍ)
 
 const testimonios = [
   { nombre: 'Carmen López', texto: 'El dulce de leche es espectacular. ¡Ya es mi tercera compra!', rating: 5, producto: 'Dulce de Leche Tradicional' },
@@ -143,96 +139,105 @@ export default function Tienda() {
   };
 
   return (
-    <div className="min-h-screen bg-[#fef9f3]">
-      {/* HEADER */}
-      <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? 'bg-white/98 shadow-lg' : 'bg-transparent'}`}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16 sm:h-20">
-            <a href="#inicio" className="flex items-center gap-2 sm:gap-3">
-              <img src="/logo-maria.png" alt="Logo María Ve Ideas y Sabores" className="h-12 w-12 sm:h-14 sm:w-14 lg:h-16 lg:w-16 rounded-full object-cover shadow-lg" />
+    <div className="min-h-screen bg-stone-50 text-stone-800 font-serif">
+      {/* HEADER GOURMET */}
+      <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${scrolled ? 'bg-stone-900/95 backdrop-blur-md shadow-xl' : 'bg-transparent'}`}>
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          <div className="flex justify-between items-center h-20">
+            <a href="#inicio" className="flex items-center gap-3 group">
+              <img src="/logo-maria.png" alt="Logo" className="h-12 w-12 lg:h-14 lg:w-14 rounded-full object-cover shadow-lg border-2 border-amber-500/50 transition-transform group-hover:scale-105" />
               <div className="flex flex-col">
-                <h1 className={`text-base sm:text-lg lg:text-xl font-bold leading-tight transition-colors ${scrolled ? 'text-rose-600' : 'text-white'}`}>María Ve</h1>
-                <p className={`text-[9px] sm:text-xs font-medium tracking-wide transition-colors ${scrolled ? 'text-gray-500' : 'text-white/90'}`}>Ideas y Sabores</p>
+                <h1 className={`text-lg lg:text-xl font-bold tracking-widest uppercase transition-colors ${scrolled ? 'text-amber-500' : 'text-white'}`}>María Ve</h1>
+                <p className={`text-[10px] tracking-[0.2em] uppercase transition-colors ${scrolled ? 'text-stone-400' : 'text-stone-300'}`}>Ideas y Sabores</p>
               </div>
             </a>
             
-            <nav className="hidden md:flex gap-6 lg:gap-8 items-center">
+            <nav className="hidden lg:flex gap-10 items-center">
               {['Inicio', 'Productos', 'Nosotros', 'Contacto'].map(item => (
-                <a key={item} href={`#${item.toLowerCase()}`} className={`font-medium transition-colors ${scrolled ? 'text-gray-700 hover:text-rose-600' : 'text-white hover:text-rose-200'}`}>{item}</a>
+                <a key={item} href={`#${item.toLowerCase()}`} className={`text-xs uppercase tracking-widest font-medium transition-colors relative group ${scrolled ? 'text-stone-300 hover:text-amber-500' : 'text-stone-200 hover:text-white'}`}>
+                  {item}
+                  <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-amber-500 transition-all group-hover:w-full"></span>
+                </a>
               ))}
-              
-              {/* SELECTOR DE MONEDA - VERSIÓN ESCRITORIO (VISIBLE) */}
-              <select 
-                value={moneda} 
-                onChange={(e) => setMoneda(e.target.value)} 
-                className={`bg-black/20 backdrop-blur-sm border border-white/30 rounded-full px-3 py-1 text-sm font-bold cursor-pointer outline-none transition-colors ${scrolled ? 'bg-gray-100 border-gray-200 text-gray-800' : 'text-white'}`}
-              >
-                <option value="EUR" className="text-gray-800">EUR €</option>
-                <option value="USD" className="text-gray-800">USD $</option>
-                <option value="ARS" className="text-gray-800">ARS $</option>
+              <select value={moneda} onChange={(e) => setMoneda(e.target.value)} className={`bg-transparent border-b border-stone-600 px-2 py-1 text-xs uppercase tracking-widest cursor-pointer outline-none ${scrolled ? 'text-amber-500' : 'text-white'}`}>
+                <option value="EUR" className="text-stone-800">EUR €</option>
+                <option value="USD" className="text-stone-800">USD $</option>
+                <option value="ARS" className="text-stone-800">ARS $</option>
               </select>
             </nav>
 
-            <div className="flex items-center gap-2 sm:gap-4">
-               {/* SELECTOR DE MONEDA - VERSIÓN MÓVIL (VISIBLE) */}
-               <div className="md:hidden">
-                <select 
-                  value={moneda} 
-                  onChange={(e) => setMoneda(e.target.value)} 
-                  className={`bg-black/20 backdrop-blur-sm border border-white/30 rounded-full px-2 py-1 text-xs font-bold cursor-pointer outline-none ${scrolled ? 'bg-gray-100 border-gray-200 text-gray-800' : 'text-white'}`}
-                >
-                  <option value="EUR" className="text-gray-800">EUR</option>
-                  <option value="USD" className="text-gray-800">USD</option>
-                  <option value="ARS" className="text-gray-800">ARS</option>
-                </select>
-               </div>
-
-              <button onClick={() => setMostrarCarrito(true)} className="relative bg-gradient-to-r from-rose-500 to-orange-500 text-white px-3 sm:px-5 py-2 sm:py-2.5 rounded-full font-semibold text-sm sm:text-base hover:from-rose-600 hover:to-orange-600 transition-all flex items-center gap-1 sm:gap-2">
+            <div className="flex items-center gap-4">
+              <select value={moneda} onChange={(e) => setMoneda(e.target.value)} className={`lg:hidden bg-transparent border-b border-stone-600 px-1 text-xs uppercase cursor-pointer outline-none ${scrolled ? 'text-amber-500' : 'text-white'}`}>
+                <option value="EUR" className="text-stone-800">EUR</option>
+                <option value="USD" className="text-stone-800">USD</option>
+                <option value="ARS" className="text-stone-800">ARS</option>
+              </select>
+              <button onClick={() => setMostrarCarrito(true)} className="relative bg-stone-900 text-amber-500 px-4 py-2 rounded-none border border-amber-500 font-medium text-xs uppercase tracking-widest hover:bg-amber-500 hover:text-stone-900 transition-all flex items-center gap-2">
                 <span>🛒</span>
                 <span className="hidden sm:inline">Carrito</span>
-                {totalItems > 0 && (<span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs w-5 h-5 sm:w-6 sm:h-6 rounded-full flex items-center justify-center font-bold">{totalItems}</span>)}
+                {totalItems > 0 && (<span className="absolute -top-2 -right-2 bg-amber-500 text-stone-900 text-[10px] w-5 h-5 rounded-full flex items-center justify-center font-bold">{totalItems}</span>)}
               </button>
-              <button onClick={() => setMenuAbierto(!menuAbierto)} className="md:hidden p-2 rounded-lg">
-                <span className={`text-2xl ${scrolled ? 'text-gray-700' : 'text-white'}`}>{menuAbierto ? '✕' : '☰'}</span>
+              <button onClick={() => setMenuAbierto(!menuAbierto)} className="lg:hidden p-2 text-amber-500">
+                <span className="text-2xl">{menuAbierto ? '✕' : '☰'}</span>
               </button>
             </div>
           </div>
           {menuAbierto && (
-            <div className="md:hidden bg-white rounded-b-2xl shadow-lg py-4 px-4 absolute left-0 right-0">
-              {['Inicio', 'Productos', 'Nosotros', 'Contacto'].map(item => (<a key={item} href={`#${item.toLowerCase()}`} onClick={() => setMenuAbierto(false)} className="block py-3 px-4 text-gray-700 font-medium hover:bg-rose-50 hover:text-rose-600 rounded-lg transition-colors">{item}</a>))}
+            <div className="lg:hidden bg-stone-900 border-t border-stone-800 py-4 px-4 absolute left-0 right-0">
+              {['Inicio', 'Productos', 'Nosotros', 'Contacto'].map(item => (<a key={item} href={`#${item.toLowerCase()}`} onClick={() => setMenuAbierto(false)} className="block py-3 px-4 text-stone-300 text-xs uppercase tracking-widest hover:text-amber-500 transition-colors">{item}</a>))}
             </div>
           )}
         </div>
       </header>
 
-      {/* HERO */}
-      <section id="inicio" className="bg-gradient-to-br from-rose-400 via-pink-500 to-orange-400 text-white min-h-screen flex items-center relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-3/4 h-full bg-white/5 rounded-full transform translate-x-1/3 -rotate-12" />
-        <div className="absolute bottom-0 left-0 w-1/2 h-1/2 bg-white/5 rounded-full transform -translate-x-1/4 translate-y-1/4" />
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 sm:py-32 relative z-10 w-full">
-          <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+      {/* HERO GOURMET */}
+      <section id="inicio" className="bg-stone-900 text-white min-h-screen flex items-center relative overflow-hidden">
+        <div className="absolute inset-0 bg-[url('/products-maria/hero-texture.jpg')] opacity-5 bg-cover bg-center"></div>
+        <div className="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-amber-900/20 to-transparent" />
+        
+        <div className="max-w-7xl mx-auto px-6 lg:px-8 py-32 relative z-10 w-full">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div className="text-center lg:text-left order-2 lg:order-1">
-              <span className="inline-block bg-white/20 px-4 py-2 rounded-full text-sm font-medium mb-4 sm:mb-6">✨ Producto Destacado</span>
-              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 sm:mb-6 leading-tight">{productoDestacado.nombre}</h1>
-              <p className="text-base sm:text-lg lg:text-xl mb-6 sm:mb-8 opacity-90 leading-relaxed">{productoDestacado.descripcion}</p>
-              <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-6 mb-6 sm:mb-8">
-                <span className="text-4xl sm:text-5xl font-bold">{formatearPrecio(productoDestacado.precio)}</span>
-                <div className="flex items-center gap-2 bg-white/20 px-4 py-2 rounded-full">
-                  <span className="text-yellow-300">★★★★★</span>
-                  <span className="text-sm">({productoDestacado.reviews} reseñas)</span>
+              <span className="inline-block text-amber-500 text-[10px] tracking-[0.3em] uppercase font-medium mb-6 border border-amber-500/50 px-4 py-1">Producto Destacado</span>
+              <h1 className="text-4xl sm:text-5xl lg:text-7xl font-light leading-tight mb-6 tracking-tight">
+                {productoDestacado.nombre}
+              </h1>
+              <p className="text-stone-400 text-base lg:text-lg mb-8 leading-relaxed max-w-lg mx-auto lg:mx-0 font-sans">
+                {productoDestacado.descripcion}
+              </p>
+              
+              <div className="flex flex-col sm:flex-row items-center gap-6 mb-8">
+                <span className="text-4xl lg:text-5xl font-light text-amber-500">
+                  {formatearPrecio(productoDestacado.precio)}
+                </span>
+                <div className="flex items-center gap-2 text-stone-400">
+                  <span className="text-amber-500 tracking-widest text-sm">★★★★★</span>
+                  <span className="text-xs font-sans">({productoDestacado.reviews} reseñas)</span>
                 </div>
               </div>
-              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center lg:justify-start">
-                <button onClick={() => agregarAlCarrito(productoDestacado)} className="bg-white text-rose-600 px-6 sm:px-8 py-3 sm:py-4 rounded-full font-bold text-base sm:text-lg shadow-lg hover:shadow-xl transition-shadow flex items-center justify-center gap-2">🛒 Añadir al Carrito</button>
-                <a href={`https://wa.me/${WHATSAPP_NUMBER}?text=¡Hola! Me interesa el ${productoDestacado.nombre}`} target="_blank" rel="noopener noreferrer" className="bg-green-500 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-full font-bold text-base sm:text-lg hover:bg-green-600 transition-colors flex items-center justify-center gap-2">💬 WhatsApp</a>
+
+              <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                <button onClick={() => agregarAlCarrito(productoDestacado)} className="group bg-amber-500 text-stone-900 px-8 py-4 font-medium text-sm uppercase tracking-widest hover:bg-amber-400 transition-all flex items-center justify-center gap-3">
+                  Añadir al Carrito
+                  <span className="group-hover:translate-x-1 transition-transform">→</span>
+                </button>
+                <a href={`https://wa.me/${WHATSAPP_NUMBER}?text=¡Hola! Me interesa el ${productoDestacado.nombre}`} target="_blank" rel="noopener noreferrer" className="bg-transparent text-white px-8 py-4 border border-stone-700 font-medium text-sm uppercase tracking-widest hover:border-amber-500 hover:text-amber-500 transition-all flex items-center justify-center gap-3">
+                  Consultar
+                </a>
               </div>
             </div>
+
             <div className="order-1 lg:order-2 flex justify-center">
-              <div className="relative">
-                <div className="w-64 h-64 sm:w-80 sm:h-80 lg:w-96 lg:h-96 rounded-full overflow-hidden shadow-2xl border-4 sm:border-8 border-white/30">
-                  <img src={productoDestacado.imagen} alt={productoDestacado.nombre} className="w-full h-full object-cover" />
+              <div className="relative p-4">
+                <div className="absolute inset-0 border border-amber-500/30 transform rotate-3"></div>
+                <div className="w-72 h-72 sm:w-96 sm:h-96 lg:w-[28rem] lg:h-[28rem] rounded-none overflow-hidden shadow-2xl border-8 border-stone-800 relative">
+                  <img src={productoDestacado.imagen} alt={productoDestacado.nombre} className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700" />
                 </div>
-                {productoDestacado.badge && (<div className="absolute top-2 sm:top-4 right-2 sm:right-4 bg-yellow-400 text-gray-800 px-3 sm:px-5 py-1.5 sm:py-2 rounded-full font-bold text-sm sm:text-base shadow-lg">{productoDestacado.badge}</div>)}
+                {productoDestacado.badge && (
+                  <div className="absolute -bottom-4 -right-4 bg-amber-500 text-stone-900 px-6 py-2 font-bold text-sm uppercase tracking-widest shadow-lg">
+                    {productoDestacado.badge}
+                  </div>
+                )}
               </div>
             </div>
           </div>
@@ -240,16 +245,14 @@ export default function Tienda() {
       </section>
 
       {/* BENEFICIOS */}
-      <section className="bg-white py-12 sm:py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
-            {[{icon: '🚚', titulo: 'Envío a Domicilio', texto: 'Entregamos fresco a tu puerta'}, {icon: '👩‍🍳', titulo: '100% Artesanal', texto: 'Hechos con ingredientes premium'}, {icon: '⭐', titulo: 'Calidad Garantizada', texto: '+200 clientes satisfechos'}, {icon: '💳', titulo: 'Pago Fácil', texto: 'Efectivo o transferencia'}].map((b, i) => (
-              <div key={i} className="flex flex-col sm:flex-row items-center sm:items-start gap-3 p-4 sm:p-6 bg-rose-50 rounded-xl sm:rounded-2xl text-center sm:text-left">
-                <span className="text-3xl sm:text-4xl">{b.icon}</span>
-                <div>
-                  <h3 className="font-bold text-sm sm:text-base text-gray-800 mb-1">{b.titulo}</h3>
-                  <p className="text-gray-600 text-xs sm:text-sm hidden sm:block">{b.texto}</p>
-                </div>
+      <section className="bg-stone-900 py-16 border-y border-stone-800">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
+            {[{icon: '🚚', titulo: 'Envío a Domicilio', texto: 'Entrega premium'}, {icon: '👩‍🍳', titulo: '100% Artesanal', texto: 'Hecho a mano'}, {icon: '⭐', titulo: 'Calidad Suprema', texto: '+200 clientes'}, {icon: '💎', titulo: 'Pago Seguro', texto: 'Múltiples métodos'}].map((b, i) => (
+              <div key={i} className="text-center">
+                <span className="text-3xl mb-3 block">{b.icon}</span>
+                <h3 className="font-sans text-xs uppercase tracking-widest text-amber-500 mb-1">{b.titulo}</h3>
+                <p className="text-stone-500 text-[10px] uppercase tracking-wider">{b.texto}</p>
               </div>
             ))}
           </div>
@@ -257,47 +260,39 @@ export default function Tienda() {
       </section>
 
       {/* PRODUCTOS */}
-      <section id="productos" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-20">
-        <div className="text-center mb-8 sm:mb-12">
-          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-800 mb-2 sm:mb-4">Nuestros Productos</h2>
-          <p className="text-gray-600 text-sm sm:text-base lg:text-lg">Mermeladas, dulces y conservas artesanales de autor</p>
+      <section id="productos" className="max-w-7xl mx-auto px-6 lg:px-8 py-20">
+        <div className="text-center mb-16">
+          <span className="text-amber-600 text-[10px] tracking-[0.3em] uppercase font-medium">Selección Exclusiva</span>
+          <h2 className="text-3xl lg:text-4xl font-light text-stone-800 mt-2 tracking-tight">Nuestras Creaciones</h2>
+          <p className="text-stone-500 mt-4 font-sans text-sm max-w-xl mx-auto">Mermeladas, dulces y conservas artesanales elaboradas con pasión y los mejores ingredientes.</p>
         </div>
-        <div className="flex flex-wrap justify-center gap-2 sm:gap-3 mb-8 sm:mb-12">
+
+        <div className="flex flex-wrap justify-center gap-3 mb-12">
           {categorias.map(cat => (
-            <button key={cat} onClick={() => setCategoriaActiva(cat)} className={`px-4 sm:px-6 py-2 sm:py-2.5 rounded-full font-semibold text-sm sm:text-base transition-all ${categoriaActiva === cat ? 'bg-gradient-to-r from-rose-500 to-orange-500 text-white' : 'bg-white text-gray-700 border-2 border-gray-200 hover:border-rose-300'}`}>{cat}</button>
+            <button key={cat} onClick={() => setCategoriaActiva(cat)} className={`px-6 py-2 text-xs uppercase tracking-widest transition-all border ${categoriaActiva === cat ? 'bg-stone-900 text-amber-500 border-stone-900' : 'bg-transparent text-stone-600 border-stone-300 hover:border-amber-500 hover:text-amber-600'}`}>{cat}</button>
           ))}
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {productosFiltrados.map(producto => (
-            <div key={producto.id} className="bg-white rounded-xl sm:rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-shadow relative group">
-              {producto.badge && (<span className="absolute top-3 left-3 bg-gradient-to-r from-rose-500 to-orange-500 text-white px-3 py-1 rounded-full text-xs font-bold z-10">{producto.badge}</span>)}
+            <div key={producto.id} className="group bg-white border border-stone-200 hover:border-amber-500 hover:shadow-xl transition-all duration-300 overflow-hidden relative">
+              {producto.badge && (<span className="absolute top-3 left-3 bg-stone-900 text-amber-500 px-3 py-1 text-[10px] uppercase tracking-widest z-10">{producto.badge}</span>)}
               
-              {/* CAMBIO: Añadimos fondo blanco y lógica para ver la foto entera o cortada */}
-              <div className={`h-64 sm:h-72 overflow-hidden bg-white`}>
-                <img 
-                  src={producto.imagen} 
-                  alt={producto.nombre} 
-                  className={`w-full h-full transition-transform duration-300 group-hover:scale-105 ${
-                    // Si es el ID 13 (Dulce de Leche), mostramos la foto entera (contain), si no, la rellenamos (cover)
-                    producto.id === 13 ? 'object-contain' : 'object-cover'
-                  }`}
-                />
+              <div className="h-64 overflow-hidden bg-stone-100">
+                <img src={producto.imagen} alt={producto.nombre} className={`w-full h-full transition-transform duration-700 group-hover:scale-105 ${producto.id === 13 ? 'object-contain' : 'object-cover'}`} />
               </div>
               
-              <div className="p-4 sm:p-5">
+              <div className="p-6">
                 <div className="flex justify-between items-start gap-2 mb-2">
-                  <h3 className="font-bold text-base sm:text-lg text-gray-800 leading-tight">{producto.nombre}</h3>
-                  <span className="bg-rose-100 text-rose-700 px-2 py-0.5 rounded-full text-[10px] sm:text-xs font-semibold whitespace-nowrap">{producto.categoria}</span>
+                  <h3 className="font-light text-lg text-stone-800 tracking-tight">{producto.nombre}</h3>
+                  <span className="bg-stone-100 text-stone-600 px-2 py-0.5 text-[9px] uppercase tracking-wider">{producto.categoria}</span>
                 </div>
-                <p className="text-gray-600 text-xs sm:text-sm mb-3 line-clamp-2">{producto.descripcion}</p>
-                <div className="flex items-center gap-1 mb-3">
-                  <span className="text-yellow-400 text-sm">★</span>
-                  <span className="font-semibold text-gray-700 text-sm">{producto.rating}</span>
-                  <span className="text-gray-400 text-xs">({producto.reviews})</span>
-                </div>
-                <div className="flex justify-between items-center">
-                  <span className="text-xl sm:text-2xl font-bold text-rose-600">{formatearPrecio(producto.precio)}</span>
-                  <button onClick={() => agregarAlCarrito(producto)} className="bg-gradient-to-r from-rose-500 to-orange-500 text-white px-4 sm:px-5 py-2 rounded-full font-semibold text-sm hover:from-rose-600 hover:to-orange-600 transition-all flex items-center gap-1">🛒 <span className="hidden sm:inline">Añadir</span></button>
+                
+                <p className="text-stone-500 text-xs mb-4 font-sans line-clamp-2">{producto.descripcion}</p>
+
+                <div className="flex items-center justify-between border-t border-stone-100 pt-4">
+                  <span className="text-xl text-amber-600 font-light">{formatearPrecio(producto.precio)}</span>
+                  <button onClick={() => agregarAlCarrito(producto)} className="bg-transparent border border-stone-900 text-stone-900 px-4 py-2 text-xs uppercase tracking-widest hover:bg-stone-900 hover:text-amber-500 transition-all flex items-center gap-1">Añadir +</button>
                 </div>
               </div>
             </div>
@@ -306,31 +301,30 @@ export default function Tienda() {
       </section>
 
       {/* NOSOTROS */}
-      <section id="nosotros" className="bg-white py-12 sm:py-20 lg:py-24">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center">
+      <section id="nosotros" className="bg-white py-20 lg:py-28">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          <div className="grid lg:grid-cols-2 gap-16 items-center">
             <div className="text-center lg:text-left">
-              <div className="flex items-center justify-center lg:justify-start gap-3 mb-4 sm:mb-6">
-                <img src="/logo-maria.png" alt="Logo María Ve Ideas y Sabores" className="h-12 w-12 sm:h-14 sm:w-14 rounded-full object-cover shadow-lg" />
-                <div>
-                  <span className="text-rose-600 font-semibold text-sm block">Nuestra Historia</span>
-                  <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-800 leading-tight">Sobre Nosotros</h2>
-                </div>
-              </div>
-              <p className="text-gray-600 text-sm sm:text-base lg:text-lg leading-relaxed mb-4 sm:mb-6"><strong>María Ve Ideas y Sabores</strong> nació de la pasión por la cocina artesanal. Cada producto es elaborado con dedicación, utilizando ingredientes frescos y de calidad.</p>
-              <p className="text-gray-600 text-sm sm:text-base lg:text-lg leading-relaxed mb-4 sm:mb-6 hidden sm:block">Nuestras mermeladas, dulces y conservas se preparan en pequeñas tandas para garantizar la frescura y el sabor auténtico que nos caracteriza.</p>
-              <div className="grid grid-cols-3 gap-4 sm:gap-8 mt-6 sm:mt-10">
+              <span className="text-amber-600 text-[10px] tracking-[0.3em] uppercase font-medium">Nuestra Esencia</span>
+              <h2 className="text-3xl lg:text-4xl font-light text-stone-800 mt-2 tracking-tight">Sobre Nosotros</h2>
+              
+              <p className="text-stone-600 font-sans text-sm leading-relaxed mt-6 mb-6">
+                <strong className="text-stone-800 font-serif">María Ve Ideas y Sabores</strong> nació de la pasión por la cocina artesanal. Cada producto es elaborado con dedicación, utilizando ingredientes frescos y de calidad.
+              </p>
+
+              <div className="grid grid-cols-3 gap-4 mt-10 max-w-md mx-auto lg:mx-0">
                 {[{numero: '200+', texto: 'Clientes'}, {numero: '15+', texto: 'Productos'}, {numero: '5', texto: 'Años'}].map((stat, i) => (
                   <div key={i} className="text-center">
-                    <div className="text-2xl sm:text-3xl lg:text-4xl font-bold text-rose-600">{stat.numero}</div>
-                    <div className="text-gray-500 text-xs sm:text-sm">{stat.texto}</div>
+                    <div className="text-3xl font-light text-amber-600">{stat.numero}</div>
+                    <div className="text-stone-400 text-[10px] uppercase tracking-widest mt-1">{stat.texto}</div>
                   </div>
                 ))}
               </div>
             </div>
-            <div className="grid grid-cols-2 gap-3 sm:gap-4">
+
+            <div className="grid grid-cols-2 gap-4">
               {['producto-1', 'producto-2', 'producto-3', 'producto-8'].map((img, i) => (
-                <img key={i} src={`/products-maria/${img}.jpg`} alt={img} className={`w-full h-32 sm:h-40 lg:h-48 object-cover rounded-lg sm:rounded-xl shadow-lg ${i % 2 === 1 ? 'mt-4 sm:mt-8' : ''}`} />
+                <img key={i} src={`/products-maria/${img}.jpg`} alt={img} className={`w-full h-48 object-cover border border-stone-200 ${i % 2 === 1 ? 'mt-8' : ''}`} />
               ))}
             </div>
           </div>
@@ -338,24 +332,21 @@ export default function Tienda() {
       </section>
 
       {/* TESTIMONIOS */}
-      <section className="bg-rose-50 py-12 sm:py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-8 sm:mb-12">
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-800 mb-2 sm:mb-4">Lo Que Dicen Nuestros Clientes</h2>
-            <p className="text-gray-600 text-sm sm:text-base">Clientes satisfechos nos respaldan</p>
+      <section className="bg-stone-100 py-20">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <span className="text-amber-600 text-[10px] tracking-[0.3em] uppercase font-medium">Testimonios</span>
+            <h2 className="text-3xl lg:text-4xl font-light text-stone-800 mt-2 tracking-tight">Lo Que Dicen Nuestros Clientes</h2>
           </div>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {testimonios.map((t, i) => (
-              <div key={i} className="bg-white p-5 sm:p-6 lg:p-8 rounded-xl sm:rounded-2xl shadow-sm">
-                <div className="text-yellow-400 mb-3 sm:mb-4 text-lg sm:text-xl">{'★'.repeat(t.rating)}</div>
-                <p className="text-gray-600 text-sm sm:text-base leading-relaxed mb-4 sm:mb-6 italic">"{t.texto}"</p>
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-rose-100 flex items-center justify-center text-lg sm:text-xl">👤</div>
-                  <div>
-                    <div className="font-bold text-gray-800 text-sm sm:text-base">{t.nombre}</div>
-                    <div className="text-gray-500 text-xs sm:text-sm">{t.producto}</div>
-                  </div>
-                </div>
+              <div key={i} className="bg-white p-8 border border-stone-200 hover:border-amber-500 transition-colors text-center">
+                <div className="text-amber-500 mb-4 tracking-widest text-sm">{'★'.repeat(t.rating)}</div>
+                <p className="text-stone-600 font-sans text-sm italic mb-6">"{t.texto}"</p>
+                <div className="w-12 h-12 rounded-full bg-stone-900 flex items-center justify-center text-amber-500 mx-auto mb-3">M</div>
+                <div className="font-serif text-stone-800">{t.nombre}</div>
+                <div className="text-stone-400 text-xs uppercase tracking-widest mt-1">{t.producto}</div>
               </div>
             ))}
           </div>
@@ -363,35 +354,32 @@ export default function Tienda() {
       </section>
 
       {/* CONTACTO */}
-      <section id="contacto" className="bg-white py-12 sm:py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-8 lg:gap-16">
-            <div className="text-center lg:text-left">
-              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-800 mb-4 sm:mb-6">Contáctanos</h2>
-              <p className="text-gray-600 text-sm sm:text-base lg:text-lg mb-6 sm:mb-8 leading-relaxed">¿Tienes alguna pregunta o quieres hacer un pedido especial? Estamos aquí para ayudarte.</p>
-              <div className="grid grid-cols-2 lg:grid-cols-1 gap-4 sm:gap-6 mb-6 sm:mb-8">
-                {[{icon: '📞', titulo: 'Teléfono', texto: '+34 612 345 678', bg: 'bg-rose-100'}, {icon: '💬', titulo: 'WhatsApp', texto: 'Respuesta inmediata', bg: 'bg-green-100'}, {icon: '📍', titulo: 'Zona de Entrega', texto: 'Toda la ciudad', bg: 'bg-blue-100'}, {icon: '🕐', titulo: 'Horario', texto: 'Lun-Sáb: 9:00-20:00', bg: 'bg-pink-100'}].map((c, i) => (
-                  <div key={i} className="flex items-center gap-3 p-3 sm:p-4 bg-gray-50 rounded-lg sm:rounded-xl">
-                    <div className={`w-10 h-10 sm:w-12 sm:h-12 ${c.bg} rounded-full flex items-center justify-center text-lg sm:text-xl shrink-0`}>{c.icon}</div>
-                    <div className="text-left">
-                      <div className="font-semibold text-gray-800 text-sm sm:text-base">{c.titulo}</div>
-                      <div className="text-gray-600 text-xs sm:text-sm">{c.texto}</div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-              <a href={`https://wa.me/${WHATSAPP_NUMBER}?text=¡Hola! Me gustaría más información sobre sus productos.`} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 bg-green-500 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-full font-bold text-base sm:text-lg hover:bg-green-600 transition-colors">💬 Escríbenos por WhatsApp</a>
+      <section id="contacto" className="bg-white py-20">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <span className="text-amber-600 text-[10px] tracking-[0.3em] uppercase font-medium">Contacto</span>
+            <h2 className="text-3xl lg:text-4xl font-light text-stone-800 mt-2 tracking-tight">Haga Su Reserva</h2>
+          </div>
+          
+          <div className="max-w-3xl mx-auto text-center">
+            <p className="text-stone-500 font-sans text-sm mb-8">¿Tienes alguna pregunta o quieres hacer un pedido especial? Estamos aquí para ayudarte.</p>
+            
+            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
+              <a href={`https://wa.me/${WHATSAPP_NUMBER}?text=¡Hola! Me gustaría más información sobre sus productos.`} target="_blank" rel="noopener noreferrer" className="bg-stone-900 text-amber-500 px-8 py-4 font-medium text-sm uppercase tracking-widest hover:bg-amber-500 hover:text-stone-900 transition-all flex items-center justify-center gap-3">💬 WhatsApp Directo</a>
             </div>
-            <div className="bg-rose-50 p-5 sm:p-6 lg:p-8 rounded-xl sm:rounded-2xl">
-              <h3 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6 text-gray-800">Envíanos un Mensaje</h3>
-              <form onSubmit={(e) => { e.preventDefault(); alert('¡Gracias! Te contactaremos pronto.'); }}>
-                <div className="space-y-4">
-                  <div><label className="block text-sm font-medium text-gray-700 mb-1.5">Nombre</label><input type="text" required className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg sm:rounded-xl focus:border-rose-400 outline-none transition-colors text-sm sm:text-base" placeholder="Tu nombre" /></div>
-                  <div><label className="block text-sm font-medium text-gray-700 mb-1.5">Teléfono</label><input type="tel" required className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg sm:rounded-xl focus:border-rose-400 outline-none transition-colors text-sm sm:text-base" placeholder="Tu teléfono" /></div>
-                  <div><label className="block text-sm font-medium text-gray-700 mb-1.5">Mensaje</label><textarea required rows={4} className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg sm:rounded-xl focus:border-rose-400 outline-none transition-colors resize-none text-sm sm:text-base" placeholder="¿En qué podemos ayudarte?" /></div>
-                  <button type="submit" className="w-full bg-gradient-to-r from-rose-500 to-orange-500 text-white py-3 sm:py-4 rounded-lg sm:rounded-xl font-bold text-base sm:text-lg hover:from-rose-600 hover:to-orange-600 transition-all">Enviar Mensaje</button>
+
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 text-center">
+              {[
+                {icon: '📞', texto: '+34 612 345 678'}, 
+                {icon: '📍', texto: 'Toda la ciudad'}, 
+                {icon: '🕐', texto: 'Lun-Sáb 9-20h'}, 
+                {icon: '✉️', texto: 'Contacto'}
+              ].map((c, i) => (
+                <div key={i} className="p-4 border border-stone-200">
+                  <span className="block text-2xl mb-2">{c.icon}</span>
+                  <span className="text-stone-600 text-xs uppercase tracking-wider">{c.texto}</span>
                 </div>
-              </form>
+              ))}
             </div>
           </div>
         </div>
@@ -400,46 +388,48 @@ export default function Tienda() {
       {/* CARRITO */}
       {mostrarCarrito && (
         <>
-          <div onClick={() => setMostrarCarrito(false)} className="fixed inset-0 bg-black/50 z-50" />
-          <div className="fixed top-0 right-0 w-full sm:w-[420px] h-full bg-white shadow-2xl z-50 flex flex-col">
-            <div className="p-4 sm:p-6 border-b flex justify-between items-center bg-gradient-to-r from-rose-500 to-orange-500 text-white">
-              <h2 className="text-xl sm:text-2xl font-bold">🛒 Tu Pedido</h2>
-              <button onClick={() => setMostrarCarrito(false)} className="text-2xl hover:text-rose-200">✕</button>
+          <div onClick={() => setMostrarCarrito(false)} className="fixed inset-0 bg-black/80 z-50 backdrop-blur-sm" />
+          <div className="fixed top-0 right-0 w-full sm:w-[420px] h-full bg-stone-900 shadow-2xl z-50 flex flex-col border-l border-stone-800">
+            <div className="p-6 border-b border-stone-800 flex justify-between items-center">
+              <h2 className="text-xl uppercase tracking-widest text-amber-500">Tu Pedido</h2>
+              <button onClick={() => setMostrarCarrito(false)} className="text-stone-500 hover:text-white text-2xl">✕</button>
             </div>
-            <div className="flex-1 overflow-auto p-4 sm:p-6">
+
+            <div className="flex-1 overflow-auto p-6">
               {carrito.length === 0 ? (
-                <div className="text-center py-12 text-gray-500">
-                  <p className="text-5xl sm:text-6xl mb-4">🛒</p>
-                  <p className="text-lg">Tu carrito está vacío</p>
+                <div className="text-center py-12 text-stone-500">
+                  <p className="text-5xl mb-4 opacity-20">🛒</p>
+                  <p className="text-xs uppercase tracking-widest">Tu carrito está vacío</p>
                 </div>
               ) : (
-                <div className="space-y-3">
+                <div className="space-y-4">
                   {carrito.map(item => (
-                    <div key={item.id} className="flex gap-3 p-3 sm:p-4 bg-gray-50 rounded-xl">
-                      <img src={item.imagen} alt={item.nombre} className="w-16 h-16 sm:w-20 sm:h-20 rounded-lg object-cover" />
+                    <div key={item.id} className="flex gap-4 p-4 border border-stone-800">
+                      <img src={item.imagen} alt={item.nombre} className="w-16 h-16 object-cover border border-stone-700" />
                       <div className="flex-1">
-                        <p className="font-semibold text-sm sm:text-base">{item.nombre}</p>
-                        <p className="text-gray-500 text-xs sm:text-sm">{formatearPrecio(item.precio)} c/u</p>
+                        <p className="font-sans text-sm text-white">{item.nombre}</p>
+                        <p className="text-amber-500 text-xs mt-1">{formatearPrecio(item.precio)}</p>
                         <div className="flex items-center gap-3 mt-2">
-                          <button onClick={() => cambiarCantidad(item.id, -1)} className="w-7 h-7 sm:w-8 sm:h-8 rounded-full border border-gray-300 bg-white font-bold text-sm sm:text-base hover:bg-gray-100">-</button>
-                          <span className="font-semibold">{item.cantidad}</span>
-                          <button onClick={() => cambiarCantidad(item.id, 1)} className="w-7 h-7 sm:w-8 sm:h-8 rounded-full border border-gray-300 bg-white font-bold text-sm sm:text-base hover:bg-gray-100">+</button>
+                          <button onClick={() => cambiarCantidad(item.id, -1)} className="w-6 h-6 border border-stone-700 text-stone-500 text-xs hover:text-white hover:border-white transition-colors">-</button>
+                          <span className="text-white text-sm">{item.cantidad}</span>
+                          <button onClick={() => cambiarCantidad(item.id, 1)} className="w-6 h-6 border border-stone-700 text-stone-500 text-xs hover:text-white hover:border-white transition-colors">+</button>
                         </div>
                       </div>
                       <div className="text-right">
-                        <p className="font-bold text-rose-600 text-sm sm:text-base">{formatearPrecio(item.precio * item.cantidad)}</p>
-                        <button onClick={() => quitarDelCarrito(item.id)} className="mt-2 text-red-500 text-xs sm:text-sm hover:text-red-700">Eliminar</button>
+                        <p className="text-amber-500 font-sans text-sm">{formatearPrecio(item.precio * item.cantidad)}</p>
+                        <button onClick={() => quitarDelCarrito(item.id)} className="mt-2 text-[10px] uppercase tracking-widest text-red-400 hover:text-red-300">Eliminar</button>
                       </div>
                     </div>
                   ))}
                 </div>
               )}
             </div>
+
             {carrito.length > 0 && (
-              <div className="p-4 sm:p-6 border-t bg-gray-50">
-                <div className="flex justify-between mb-2"><span className="text-gray-600">Subtotal:</span><span>{formatearPrecio(totalCarritoEUR)}</span></div>
-                <div className="flex justify-between mb-4 sm:mb-6"><span className="text-lg sm:text-xl font-bold">Total:</span><span className="text-xl sm:text-2xl font-bold text-rose-600">{formatearPrecio(totalCarritoEUR)}</span></div>
-                <button onClick={enviarPedidoWhatsApp} className="w-full bg-green-500 text-white py-3 sm:py-4 rounded-full font-bold text-base sm:text-lg hover:bg-green-600 transition-colors flex items-center justify-center gap-2">💬 Pedir por WhatsApp</button>
+              <div className="p-6 border-t border-stone-800 bg-stone-950">
+                <div className="flex justify-between mb-2 text-stone-500 text-xs uppercase tracking-widest"><span>Subtotal:</span><span>{formatearPrecio(totalCarritoEUR)}</span></div>
+                <div className="flex justify-between mb-6 text-white text-lg"><span>Total:</span><span className="text-amber-500">{formatearPrecio(totalCarritoEUR)}</span></div>
+                <button onClick={enviarPedidoWhatsApp} className="w-full bg-amber-500 text-stone-900 py-4 uppercase tracking-widest text-sm font-bold hover:bg-amber-400 transition-colors flex items-center justify-center gap-2"> Pedir por WhatsApp </button>
               </div>
             )}
           </div>
@@ -447,45 +437,37 @@ export default function Tienda() {
       )}
 
       {/* FOOTER */}
-      <footer className="bg-gray-800 text-white py-8 sm:py-12 lg:py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 mb-6 sm:mb-8">
+      <footer className="bg-stone-950 text-stone-500 py-16">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
             <div className="col-span-2 lg:col-span-1">
-              <div className="flex items-center gap-3 mb-4 sm:mb-6">
-                <img src="/logo-maria.png" alt="Logo María Ve Ideas y Sabores" className="h-14 w-14 sm:h-16 sm:w-16 rounded-full object-cover shadow-lg" />
-                <div className="flex flex-col">
-                  <span className="text-xl sm:text-2xl font-bold">María Ve</span>
-                  <span className="text-rose-400 text-xs sm:text-sm font-medium">Ideas y Sabores</span>
+              <div className="flex items-center gap-3 mb-6">
+                <img src="/logo-maria.png" alt="Logo" className="h-12 w-12 rounded-full border border-amber-500/30" />
+                <div>
+                  <span className="block text-white text-lg tracking-widest uppercase">María Ve</span>
+                  <span className="block text-amber-500 text-[10px] tracking-widest uppercase">Ideas y Sabores</span>
                 </div>
               </div>
-              <p className="text-gray-400 text-xs sm:text-sm leading-relaxed mb-4">Mermeladas, dulces y conservas artesanales. Hechos con amor e ingredientes de primera calidad.</p>
-              <div className="flex gap-3">
-                <a href={`https://wa.me/${WHATSAPP_NUMBER}`} target="_blank" rel="noopener noreferrer" className="w-9 h-9 sm:w-10 sm:h-10 bg-gray-700 hover:bg-green-500 rounded-full flex items-center justify-center transition-colors text-lg">💬</a>
-                <a href="#" className="w-9 h-9 sm:w-10 sm:h-10 bg-gray-700 hover:bg-pink-500 rounded-full flex items-center justify-center transition-colors text-lg">📷</a>
-              </div>
+              <p className="text-xs font-sans leading-relaxed">Mermeladas, dulces y conservas artesanales. Hechos con amor e ingredientes de primera calidad.</p>
             </div>
             <div>
-              <h4 className="font-bold mb-3 sm:mb-4 text-sm sm:text-base">Enlaces</h4>
-              <div className="space-y-2">{['Inicio', 'Productos', 'Nosotros', 'Contacto'].map(item => (<a key={item} href={`#${item.toLowerCase()}`} className="block text-gray-400 text-xs sm:text-sm hover:text-rose-400">{item}</a>))}</div>
+              <h4 className="text-amber-500 text-[10px] uppercase tracking-widest mb-4 font-bold">Navegación</h4>
+              <div className="space-y-2">{['Inicio', 'Productos', 'Nosotros', 'Contacto'].map(item => (<a key={item} href={`#${item.toLowerCase()}`} className="block text-xs font-sans hover:text-white transition-colors">{item}</a>))}</div>
             </div>
             <div>
-              <h4 className="font-bold mb-3 sm:mb-4 text-sm sm:text-base">Categorías</h4>
-              <div className="space-y-2">{['Mermeladas', 'Dulces', 'Conservas', 'Especiales'].map(item => (<span key={item} className="block text-gray-400 text-xs sm:text-sm">{item}</span>))}</div>
+              <h4 className="text-amber-500 text-[10px] uppercase tracking-widest mb-4 font-bold">Categorías</h4>
+              <div className="space-y-2">{['Mermeladas', 'Dulces', 'Conservas'].map(item => (<span key={item} className="block text-xs font-sans">{item}</span>))}</div>
             </div>
             <div>
-              <h4 className="font-bold mb-3 sm:mb-4 text-sm sm:text-base">Contacto</h4>
-              <div className="space-y-2 text-gray-400 text-xs sm:text-sm">
+              <h4 className="text-amber-500 text-[10px] uppercase tracking-widest mb-4 font-bold">Contacto</h4>
+              <div className="space-y-2 text-xs font-sans">
                 <p>📞 +34 612 345 678</p>
                 <p>📍 Envíos a toda la ciudad</p>
               </div>
             </div>
           </div>
-          <div className="border-t border-gray-700 pt-6 sm:pt-8 text-center">
-            <div className="flex items-center justify-center gap-2 mb-2">
-              <img src="/logo-maria.png" alt="Logo" className="h-8 w-8 rounded-full object-cover" />
-              <span className="text-gray-300 font-semibold">María Ve Ideas y Sabores</span>
-            </div>
-            <p className="text-gray-500 text-xs sm:text-sm">© 2024 María Ve Ideas y Sabores. Todos los derechos reservados.</p>
+          <div className="border-t border-stone-800 pt-8 text-center text-[10px] uppercase tracking-widest">
+            <p>© 2024 María Ve Ideas y Sabores. Todos los derechos reservados.</p>
           </div>
         </div>
       </footer>
