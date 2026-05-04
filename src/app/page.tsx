@@ -21,9 +21,9 @@ const productos = [
   },
   {
     id: 15,
-    nombre: 'Buñuelos de Viento',
+    nombre: 'Tortillas de MariVe de Autor',
     precio: 7.50,
-    imagen: '/products-maria/totilla-autor.jpg',
+    imagen: '/products-maria/Tortillas de MariVe de Autor.jpg',
     descripcion: 'Buñuelos caseros esponjosos y dorados. Rellenos de crema.',
     categoria: 'Postres',
     destacado: true,
